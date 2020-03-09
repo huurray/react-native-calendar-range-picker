@@ -8,23 +8,6 @@
  * @format
  */
 
-import React from 'react';
-import {SafeAreaView, StatusBar} from 'react-native';
-import CalendarList from './calendar';
+import Calendar from './Calendar';
 
-const App = () => {
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <CalendarList
-          onChange={props => {
-            console.log(props);
-          }}
-        />
-      </SafeAreaView>
-    </>
-  );
-};
-
-export default App;
+export default Calendar;
