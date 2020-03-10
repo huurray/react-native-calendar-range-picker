@@ -15,12 +15,12 @@ $ npm install react-native-calendar-range-picker
 ### Select date range
 
 ```jsx
-import {Calendar} from 'react-native-calendar-range-picker';
+import Calendar from "react-native-calendar-range-picker";
 
 <Calendar
   startDate="2020-05-05"
   endDate="2020-05-12"
-  onChange={({startDate, endDate}) => console.log({startDate, endDate})}
+  onChange={({ startDate, endDate }) => console.log({ startDate, endDate })}
 />;
 ```
 
