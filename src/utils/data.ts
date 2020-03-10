@@ -1,5 +1,4 @@
-import moment from "moment";
-
+import * as moment from "moment";
 export interface Day_Type {
   date: string | null;
   type: string | null;

@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import moment from "moment";
+import * as React from "react";
+import * as moment from "moment";
 // components
 import CalendarList from "./CalendarList";
 // config
@@ -39,7 +39,7 @@ interface Props {
   singleSelectMode?: boolean;
 }
 
-export default class Index extends Component<Props, State> {
+export default class Index extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {

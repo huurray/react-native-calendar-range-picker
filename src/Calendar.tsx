@@ -1,6 +1,6 @@
-import React from "react";
+import * as React from "react";
 import { StyleSheet, View, Text } from "react-native";
-import moment from "moment";
+import * as moment from "moment";
 // components
 import Day from "./Day";
 // types

@@ -1,6 +1,6 @@
-import React, { useMemo, useCallback } from "react";
+import * as React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import moment from "moment";
+import * as moment from "moment";
 // types
 import { LOCALE_TYPE } from "./utils/locale";
 import { Day_Type } from "./utils/data";
@@ -37,7 +37,7 @@ const Day = ({
   const selectedBetweenDayBackgroundTextColor =
     style?.selectedBetweenDayBackgroundTextColor || "#F2F2F2";
 
-  const getTextColor = useCallback(() => {
+  const getTextColor = React.useCallback(() => {
     if (type === "start" || type === "end" || type === "single")
       return selectedDayTextColor;
     if (type === "between") return selectedBetweenDayTextColor;
@@ -46,7 +46,7 @@ const Day = ({
     return dayTextColor;
   }, [type, dayTextColor, holidayColor, todayColor, selectedDayTextColor]);
 
-  const mark = useMemo(
+  const mark = React.useMemo(
     () => (
       <>
         {type === "end" || type === "between" ? (
@@ -91,7 +91,7 @@ const Day = ({
     [type, selectedDayBackgroundColor, selectedDayBackgroundColor]
   );
 
-  return useMemo(
+  return React.useMemo(
     () => (
       <TouchableOpacity
         activeOpacity={1}
