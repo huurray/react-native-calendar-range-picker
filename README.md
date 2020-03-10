@@ -1,6 +1,6 @@
 # react-native-calendar-range-picker
 
-A small, fast and efficient React Native calendar picker.
+A Simple react native calendar picker.
 
 ![demo-play](https://user-images.githubusercontent.com/41982439/76284404-8dd58b00-62e0-11ea-94e6-8d440d3a0571.gif)
 
@@ -39,7 +39,8 @@ import {Calendar} from 'react-native-calendar-range-picker';
 Common props you may want to specify include:
 
 - `onChange` - (**Required.**) Handler which gets executed on day press including date data(start, end or single date).
-- `yearRange` - Amount of months allowed to scroll to the past and the future. default = 2
+- `pastYearRange` - Amount of months allowed to scroll to the past. default = 1
+- `futureYearRange` - Amount of months allowed to scroll to the future. default = 2
 - `locale` - Can be localized by adding custom locales to locale object.
 - `startDate` - Initially visible start date.
 - `endDate` - Initially visible end date.

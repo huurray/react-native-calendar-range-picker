@@ -29,7 +29,8 @@ interface State {
   endDate: string | null;
 }
 interface Props {
-  yearRange?: number;
+  pastYearRange?: number;
+  futureYearRange?: number;
   locale?: LOCALE_TYPE;
   startDate?: string;
   endDate?: string;
@@ -97,11 +98,17 @@ export default class Index extends Component<Props, State> {
   }
 
   render() {
-    const {style, yearRange = 2, locale = LOCALE} = this.props;
+    const {
+      style,
+      pastYearRange = 1,
+      futureYearRange = 2,
+      locale = LOCALE,
+    } = this.props;
     const {startDate, endDate} = this.state;
     return (
       <CalendarList
-        yearRange={yearRange}
+        pastYearRange={pastYearRange}
+        futureYearRange={futureYearRange}
         locale={locale}
         onPress={this.onPress}
         startDate={startDate}

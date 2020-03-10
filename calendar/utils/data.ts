@@ -13,10 +13,10 @@ export interface Month_Type {
   id: string;
 }
 
-export function getMonths(yearRange: number) {
+export function getMonths(pastYearRange: number, futureYearRange: number) {
   const currentYear = moment().year();
-  const startYear = currentYear - yearRange;
-  const endYear = currentYear + yearRange;
+  const startYear = currentYear - pastYearRange;
+  const endYear = currentYear + futureYearRange;
 
   const months: any = [];
   for (let i = 0; i < endYear - startYear; i++) {

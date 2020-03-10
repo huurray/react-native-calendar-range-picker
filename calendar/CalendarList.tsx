@@ -11,7 +11,8 @@ import {LOCALE_TYPE} from './utils/locale';
 import {Style} from './index';
 
 interface Props {
-  yearRange: number;
+  pastYearRange: number;
+  futureYearRange: number;
   locale: LOCALE_TYPE;
   onPress: (date: string) => void;
   startDate: string | null;
@@ -21,14 +22,18 @@ interface Props {
 
 export const LAYOUT_HEIGHT = 370;
 const CalendarList = ({
-  yearRange,
+  pastYearRange,
+  futureYearRange,
   locale,
   onPress,
   startDate,
   endDate,
   style,
 }: Props) => {
-  const months: Month_Type[] = useMemo(() => getMonths(yearRange), [yearRange]);
+  const months: Month_Type[] = useMemo(
+    () => getMonths(pastYearRange, futureYearRange),
+    [pastYearRange, futureYearRange],
+  );
 
   const getInitialIndex = useCallback(() => {
     return months.findIndex((month: Month_Type) => {
