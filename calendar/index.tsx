@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {Component} from 'react';
 import moment from 'moment';
 // components
 import CalendarList from './CalendarList';
@@ -24,6 +24,10 @@ interface onChangeParams {
   startDate: string | null;
   endDate: string | null;
 }
+interface State {
+  startDate: string | null;
+  endDate: string | null;
+}
 interface Props {
   yearRange?: number;
   locale?: LOCALE_TYPE;
@@ -34,75 +38,76 @@ interface Props {
   singleSelectMode?: boolean;
 }
 
-const Index = ({
-  style,
-  yearRange = 2,
-  locale = LOCALE,
-  startDate: prevStartDate,
-  endDate: prevEndDate,
-  onChange,
-  singleSelectMode,
-}: Props) => {
-  const [startDate, setStartDate] = useState(
-    prevStartDate ? prevStartDate : null,
-  );
-  const [endDate, setEndDate] = useState(prevEndDate ? prevEndDate : null);
+export default class Index extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      startDate: this.props.startDate ? this.props.startDate : null,
+      endDate: this.props.endDate ? this.props.endDate : null,
+    };
 
-  const handleSetStartDate = useCallback(
-    startDate => {
-      setStartDate(startDate);
-      setEndDate(null);
-      if (singleSelectMode) {
-        onChange(startDate);
-      } else {
-        onChange({startDate, endDate: null});
-      }
-    },
-    [singleSelectMode],
-  );
+    this.setStartDate = this.setStartDate.bind(this);
+    this.setEndDate = this.setEndDate.bind(this);
+    this.onPress = this.onPress.bind(this);
+  }
 
-  const handleSetEndDate = useCallback((startDate, endDate) => {
-    setEndDate(endDate);
+  setStartDate(startDate: string) {
+    const {onChange, singleSelectMode} = this.props;
+    this.setState({startDate, endDate: null});
+
+    if (singleSelectMode) {
+      onChange(startDate);
+    } else {
+      onChange({startDate, endDate: null});
+    }
+  }
+
+  setEndDate(startDate: string, endDate: string) {
+    const {onChange} = this.props;
+    this.setState({endDate});
     onChange({startDate, endDate});
-  }, []);
+  }
 
-  const onPress = useCallback(
-    (date: string) => {
-      if (singleSelectMode) {
-        handleSetStartDate(date);
-        return;
+  onPress(date: string) {
+    const {startDate, endDate} = this.state;
+    const {singleSelectMode} = this.props;
+
+    if (singleSelectMode) {
+      this.setState({startDate: date});
+      return;
+    }
+
+    if (!startDate && !endDate) {
+      this.setStartDate(date);
+      return;
+    }
+
+    if (startDate && endDate) {
+      this.setStartDate(date);
+      return;
+    }
+
+    if (startDate) {
+      if (moment(date).isBefore(startDate)) {
+        this.setStartDate(date);
+      } else {
+        this.setEndDate(startDate, date);
       }
-      if (!startDate && !endDate) {
-        handleSetStartDate(date);
-        return;
-      }
+    }
+  }
 
-      if (startDate && endDate) {
-        handleSetStartDate(date);
-        return;
-      }
-
-      if (startDate) {
-        if (moment(date).isBefore(startDate)) {
-          handleSetStartDate(date);
-        } else {
-          handleSetEndDate(startDate, date);
-        }
-      }
-    },
-    [startDate, endDate],
-  );
-
-  return (
-    <CalendarList
-      yearRange={yearRange}
-      locale={locale}
-      onPress={onPress}
-      startDate={startDate}
-      endDate={endDate}
-      style={style}
-    />
-  );
-};
-
-export default Index;
+  render() {
+    const {style, yearRange = 2, locale = LOCALE} = this.props;
+    const {startDate, endDate} = this.state;
+    return (
+      <CalendarList
+        yearRange={yearRange}
+        locale={locale}
+        onPress={this.onPress}
+        startDate={startDate}
+        endDate={endDate}
+        style={style}
+      />
+    );
+  }
+}

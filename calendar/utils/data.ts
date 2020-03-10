@@ -39,11 +39,12 @@ export function getWeeks(
 ) {
   const currentMonth = moment(month).month();
   const currentDate = moment(month).startOf('month');
+  let week: any = [];
   let weeks: any = [];
   let dayObj: any = {};
 
   do {
-    let week: any = [];
+    week = [];
     for (let i = 0; i < 7; i++) {
       dayObj = {
         type: null,

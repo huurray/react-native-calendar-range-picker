@@ -20,7 +20,6 @@
     "url": "https://github.com/huurray/react-native-calendar-range-picker/issues"
   },
   "homepage": "https://github.com/huurray/react-native-calendar-range-picker#readme",
-  "private": true,
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",

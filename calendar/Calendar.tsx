@@ -27,42 +27,52 @@ export default class Calendar extends React.Component<Props> {
     if (
       nextProps.startDate &&
       moment(nextProps.startDate).format('YYYY-MM') == newId
-    )
+    ) {
       return true;
+    }
 
     if (
       nextProps.endDate &&
       moment(nextProps.endDate).format('YYYY-MM') == newId
-    )
+    ) {
       return true;
+    }
 
     if (
       this.props.startDate &&
       moment(this.props.startDate).format('YYYY-MM') == newId
-    )
+    ) {
       return true;
+    }
 
     if (
       this.props.endDate &&
       moment(this.props.endDate).format('YYYY-MM') == newId
-    )
+    ) {
       return true;
+    }
 
     if (
       nextProps.startDate &&
       nextProps.endDate &&
-      moment(nextProps.startDate).format('YYYY-MM') < newId &&
-      moment(nextProps.endDate).format('YYYY-MM') > newId
-    )
+      moment(nextProps.startDate).format('YYYYMM') <
+        moment(newId).format('YYYYMM') &&
+      moment(nextProps.endDate).format('YYYYMM') >
+        moment(newId).format('YYYYMM')
+    ) {
       return true;
+    }
 
     if (
       this.props.endDate &&
       this.props.startDate &&
-      moment(this.props.startDate).format('YYYY-MM') < newId &&
-      moment(this.props.endDate).format('YYYY-MM') > newId
-    )
+      moment(this.props.startDate).format('YYYYMM') <
+        moment(newId).format('YYYYMM') &&
+      moment(this.props.endDate).format('YYYYMM') >
+        moment(newId).format('YYYYMM')
+    ) {
       return true;
+    }
 
     return false;
   }
@@ -76,6 +86,7 @@ export default class Calendar extends React.Component<Props> {
       onPress,
       style,
     } = this.props;
+
     const weeks: Week_Type[] = getWeeks(id, startDate, endDate);
     const is6Weeks = weeks.length > 5;
     return (
