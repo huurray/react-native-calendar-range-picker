@@ -1,6 +1,6 @@
 {
   "name": "react-native-calendar-range-picker",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A small and efficient React Native calendar picker.",
   "main": "index.js",
   "keywords": [
@@ -21,11 +21,8 @@
   },
   "homepage": "https://github.com/huurray/react-native-calendar-range-picker#readme",
   "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
-    "start": "react-native start",
-    "test": "jest",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel --presets=@babel/preset-env,@babel/preset-react --plugins=@babel/plugin-proposal-object-rest-spread,@babel/plugin-proposal-class-properties index.js --out-file dist/index.js"
   },
   "dependencies": {
     "moment": "^2.24.0",
@@ -33,30 +30,10 @@
     "react-native": "0.61.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.2",
-    "@babel/runtime": "^7.6.2",
-    "@react-native-community/eslint-config": "^0.0.5",
-    "@types/jest": "^24.0.24",
-    "@types/react-native": "^0.60.25",
-    "@types/react-test-renderer": "16.9.1",
-    "@typescript-eslint/eslint-plugin": "^2.12.0",
-    "@typescript-eslint/parser": "^2.12.0",
-    "babel-jest": "^24.9.0",
-    "eslint": "^6.5.1",
-    "jest": "^24.9.0",
-    "metro-react-native-babel-preset": "^0.56.0",
-    "react-test-renderer": "16.9.0",
-    "typescript": "^3.7.3"
-  },
-  "jest": {
-    "preset": "react-native",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
-    ]
+    "@types/react": "^16.9.23",
+    "@types/react-native": "^0.61.20",
+    "metro-react-native-babel-preset": "^0.56.4",
+    "react-native-typescript-transformer": "^1.2.13",
+    "typescript": "^3.8.3"
   }
 }
