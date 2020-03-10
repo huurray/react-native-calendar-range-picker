@@ -38,18 +38,18 @@ import {Calendar} from 'react-native-calendar-range-picker';
 
 Common props you may want to specify include:
 
-- `onChange` - required. Handler which gets executed on day press including date data(start date, end date or single date).
-- `yearRange` - amount of months allowed to scroll to the past and the future.
-- `locale` - can be localized by adding custom locales to locale object.
+- `onChange` - (**Required.**) Handler which gets executed on day press including date data(start, end or single date).
+- `yearRange` - Amount of months allowed to scroll to the past and the future. default = 2
+- `locale` - Can be localized by adding custom locales to locale object.
 - `startDate` - Initially visible start date.
 - `endDate` - Initially visible end date.
-- `singleSelectMode` - only select single date.
-- `style` - customize style.
+- `singleSelectMode` - Only select single date. default = false
+- `style` - Customize style.
 
 ### Locale
 
 ```jsx
-const LOCALE_EN = {
+const CUSTOM_LOCALE = {
     monthNames: [
     'January',
     'February',
@@ -69,7 +69,7 @@ const LOCALE_EN = {
   }
 
 <Calendar
-  locale={LOCALE_EN}
+  locale={CUSTOM_LOCALE}
   ...
 />;
 ```
@@ -77,8 +77,6 @@ const LOCALE_EN = {
 ### Customize Style
 
 ```jsx
-
-
 <Calendar
   style={{
     container: {},
