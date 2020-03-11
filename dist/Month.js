@@ -17,15 +17,15 @@ var React = require("react");
 var react_native_1 = require("react-native");
 var moment = require("moment");
 // components
-var Day_1 = require("./Day");
+var Week_1 = require("./Week");
 // types
 var data_1 = require("./utils/data");
-var Calendar = /** @class */ (function (_super) {
-    __extends(Calendar, _super);
-    function Calendar(props) {
+var Month = /** @class */ (function (_super) {
+    __extends(Month, _super);
+    function Month(props) {
         return _super.call(this, props) || this;
     }
-    Calendar.prototype.shouldComponentUpdate = function (nextProps) {
+    Month.prototype.shouldComponentUpdate = function (nextProps) {
         var newId = nextProps.item.id;
         if (nextProps.startDate &&
             moment(nextProps.startDate).format("YYYY-MM") == newId) {
@@ -61,14 +61,15 @@ var Calendar = /** @class */ (function (_super) {
         }
         return false;
     };
-    Calendar.prototype.render = function () {
+    Month.prototype.render = function () {
         var _a = this.props, _b = _a.item, id = _b.id, year = _b.year, month = _b.month, startDate = _a.startDate, endDate = _a.endDate, locale = _a.locale, onPress = _a.onPress, style = _a.style;
         var weeks = data_1.getWeeks(id, startDate, endDate);
         var is6Weeks = weeks.length > 5;
         return (<react_native_1.View style={[styles.container, style === null || style === void 0 ? void 0 : style.monthContainer]}>
         <react_native_1.View style={styles.monthNameContainer}>
           <react_native_1.Text style={[styles.monthName, style === null || style === void 0 ? void 0 : style.monthName]}>
-            {year} {locale.monthNames[month - 1]}
+            {year}
+            {locale.year} {locale.monthNames[month - 1]}
           </react_native_1.Text>
         </react_native_1.View>
         <react_native_1.View style={styles.dayNamesContainer}>
@@ -77,15 +78,13 @@ var Calendar = /** @class */ (function (_super) {
             </react_native_1.View>); })}
         </react_native_1.View>
         <react_native_1.View>
-          {weeks.map(function (week, i) { return (<react_native_1.View style={styles.dayContainer} key={i}>
-              {week.map(function (day, j) { return (<Day_1.default day={day} key={j} locale={locale} onPress={onPress} containerStyle={{ height: is6Weeks ? 45 : 50 }} isToday={day.date === moment().format("YYYY-MM-DD")} isHoliday={j === 0 || j === 6} style={style}/>); })}
-            </react_native_1.View>); })}
+          {weeks.map(function (week, i) { return (<Week_1.default key={i} week={week} locale={locale} onPress={onPress} is6Weeks={is6Weeks}/>); })}
         </react_native_1.View>
       </react_native_1.View>);
     };
-    return Calendar;
+    return Month;
 }(React.Component));
-exports.default = Calendar;
+exports.default = Month;
 var styles = react_native_1.StyleSheet.create({
     container: {
         paddingTop: 20,

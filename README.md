@@ -38,7 +38,7 @@ import Calendar from "react-native-calendar-range-picker";
 
 Common props you may want to specify include:
 
-- `onChange` - (**Required.**) Handler which gets executed on day press including date data(start, end or single date).
+- `onChange` - (**Required**) Handler which gets executed on day press including date data(start, end or single date).
 - `pastYearRange` - Amount of months allowed to scroll to the past. default = 1
 - `futureYearRange` - Amount of months allowed to scroll to the future. default = 2
 - `locale` - Can be localized by adding custom locales to locale object.
@@ -67,6 +67,7 @@ const CUSTOM_LOCALE = {
     ],
     dayNames: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
     today: 'Today',
+    year: '', // letter behind year number -> 2020{year}
   }
 
 <Calendar
@@ -84,6 +85,7 @@ const CUSTOM_LOCALE = {
     monthContainer: {},
     monthName: {},
     dayName: {},
+    weekContainer: {},
     dayContainer: {},
     day: {},
     dayTextColor: '#Hex',

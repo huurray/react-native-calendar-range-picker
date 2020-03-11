@@ -2,7 +2,7 @@ import * as React from "react";
 import * as moment from "moment";
 import { FlatList, View } from "react-native";
 // components
-import Calendar from "./Calendar";
+import Month from "./Month";
 // data
 import { getMonths } from "./utils/data";
 // types
@@ -52,7 +52,7 @@ const CalendarList = ({
             height: LAYOUT_HEIGHT
           }}
         >
-          <Calendar
+          <Month
             item={item}
             locale={locale}
             onPress={onPress}

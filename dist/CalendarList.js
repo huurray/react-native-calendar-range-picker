@@ -4,7 +4,7 @@ var React = require("react");
 var moment = require("moment");
 var react_native_1 = require("react-native");
 // components
-var Calendar_1 = require("./Calendar");
+var Month_1 = require("./Month");
 // data
 var data_1 = require("./utils/data");
 exports.LAYOUT_HEIGHT = 370;
@@ -22,7 +22,7 @@ var CalendarList = function (_a) {
         return (<react_native_1.View style={{
             height: exports.LAYOUT_HEIGHT
         }}>
-          <Calendar_1.default item={item} locale={locale} onPress={onPress} startDate={startDate} endDate={endDate}/>
+          <Month_1.default item={item} locale={locale} onPress={onPress} startDate={startDate} endDate={endDate}/>
         </react_native_1.View>);
     }} getItemLayout={function (_, index) { return ({
         length: exports.LAYOUT_HEIGHT,

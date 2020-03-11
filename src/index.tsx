@@ -10,6 +10,7 @@ export interface Style {
   monthContainer?: {};
   monthName?: {};
   dayName?: {};
+  weekContainer?: {};
   dayContainer?: {};
   day?: {};
   dayTextColor?: string;
@@ -34,7 +35,7 @@ interface Props {
   locale?: LOCALE_TYPE;
   startDate?: string;
   endDate?: string;
-  onChange: (params: onChangeParams | string) => void;
+  onChange: (params: onChangeParams | any) => void;
   style?: Style;
   singleSelectMode?: boolean;
 }
