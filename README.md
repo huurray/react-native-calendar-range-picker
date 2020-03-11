@@ -38,14 +38,17 @@ import Calendar from "react-native-calendar-range-picker";
 
 Common props you may want to specify include:
 
-- `onChange` - (**Required**) Handler which gets executed on day press including date data(start, end or single date).
-- `pastYearRange` - Amount of months allowed to scroll to the past. default = 1
-- `futureYearRange` - Amount of months allowed to scroll to the future. default = 2
-- `locale` - Can be localized by adding custom locales to locale object.
-- `startDate` - Initially visible start date.
-- `endDate` - Initially visible end date.
-- `singleSelectMode` - Only select single date. default = false
-- `style` - Customize style.
+| Properties           | PropType             | Description                                                                                             |
+| -------------------- | -------------------- | ------------------------------------------------------------------------------------------------------- |
+| `onChange`           | `func`               | (**Required**) Handler which gets executed on day press including date data.(start, end or single date) |
+| `pastYearRange`      | `number`             | Amount of months allowed to scroll to the past. (default = 1)                                           |
+| `futureYearRange`    | `number`             | Amount of months allowed to scroll to the future. (default = 2)                                         |
+| `locale`             | `object`             | Can be localized by adding custom locales to locale object.                                             |
+| `startDate`          | `string(YYYY-MM-DD)` | Initially visible start date.                                                                           |
+| `endDate`            | `string(YYYY-MM-DD)` | Initially visible end date.                                                                             |
+| `singleSelectMode`   | `boolean`            | Only select single date. (default = false)                                                              |
+| `initialNumToRender` | `number`             | FlatList initialNumToRender props(to protect slow initial render) (default = 5)                         |
+| `style`              | `object`             | Customize style.                                                                                        |
 
 ### Locale
 

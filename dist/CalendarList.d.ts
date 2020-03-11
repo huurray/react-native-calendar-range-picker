@@ -4,6 +4,7 @@ import { Style } from "./index";
 interface Props {
     pastYearRange: number;
     futureYearRange: number;
+    initialNumToRender: number;
     locale: LOCALE_TYPE;
     onPress: (date: string) => void;
     startDate: string | null;
@@ -11,5 +12,5 @@ interface Props {
     style?: Style;
 }
 export declare const LAYOUT_HEIGHT = 370;
-declare const CalendarList: ({ pastYearRange, futureYearRange, locale, onPress, startDate, endDate, style }: Props) => JSX.Element;
+declare const CalendarList: ({ pastYearRange, futureYearRange, initialNumToRender, locale, onPress, startDate, endDate, style }: Props) => JSX.Element;
 export default CalendarList;

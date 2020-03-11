@@ -13,6 +13,7 @@ import {Style} from './index';
 interface Props {
   pastYearRange: number;
   futureYearRange: number;
+  initialNumToRender: number;
   locale: LOCALE_TYPE;
   onPress: (date: string) => void;
   startDate: string | null;
@@ -24,6 +25,7 @@ export const LAYOUT_HEIGHT = 370;
 const CalendarList = ({
   pastYearRange,
   futureYearRange,
+  initialNumToRender,
   locale,
   onPress,
   startDate,
@@ -66,7 +68,7 @@ const CalendarList = ({
         index,
       })}
       initialScrollIndex={getInitialIndex()}
-      initialNumToRender={3}
+      initialNumToRender={initialNumToRender}
       style={style?.container}
     />
   );

@@ -38,6 +38,7 @@ interface Props {
   onChange: (params: onChangeParams | any) => void;
   style?: Style;
   singleSelectMode?: boolean;
+  initialNumToRender?: number;
 }
 
 export default class Index extends React.Component<Props, State> {
@@ -103,13 +104,15 @@ export default class Index extends React.Component<Props, State> {
       style,
       pastYearRange = 1,
       futureYearRange = 2,
-      locale = LOCALE
+      locale = LOCALE,
+      initialNumToRender = 5
     } = this.props;
     const { startDate, endDate } = this.state;
     return (
       <CalendarList
         pastYearRange={pastYearRange}
         futureYearRange={futureYearRange}
+        initialNumToRender={initialNumToRender}
         locale={locale}
         onPress={this.onPress}
         startDate={startDate}

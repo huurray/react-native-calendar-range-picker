@@ -33,6 +33,7 @@ interface Props {
     onChange: (params: onChangeParams | any) => void;
     style?: Style;
     singleSelectMode?: boolean;
+    initialNumToRender?: number;
 }
 export default class Index extends React.Component<Props, State> {
     constructor(props: Props);
