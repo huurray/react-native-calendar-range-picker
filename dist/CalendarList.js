@@ -28,6 +28,6 @@ var CalendarList = function (_a) {
         length: exports.LAYOUT_HEIGHT,
         offset: exports.LAYOUT_HEIGHT * index,
         index: index
-    }); }} initialScrollIndex={getInitialIndex()} style={style === null || style === void 0 ? void 0 : style.container}/>);
+    }); }} initialScrollIndex={getInitialIndex()} initialNumToRender={3} style={style === null || style === void 0 ? void 0 : style.container}/>);
 };
 exports.default = CalendarList;

@@ -67,6 +67,7 @@ const CalendarList = ({
         index
       })}
       initialScrollIndex={getInitialIndex()}
+      initialNumToRender={3}
       style={style?.container}
     />
   );
