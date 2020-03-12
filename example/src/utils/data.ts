@@ -81,7 +81,8 @@ export function getWeeks(
           dayObj.type = 'between';
         }
 
-        dayObj.date = currentDate.clone().format('YYYY-MM-DD');
+        const date = currentDate.clone().format('YYYY-MM-DD');
+        dayObj.date = date;
         week.push(dayObj);
         currentDate.add(1, 'day');
       } else {

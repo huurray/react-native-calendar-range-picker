@@ -77,18 +77,50 @@ export default class Month extends React.Component<Props> {
     return false;
   }
 
+  renderDayNames() {
+    const result = [];
+    const dayNames = this.props.locale.dayNames;
+
+    for (let i = 0; i < dayNames.length; i++) {
+      result.push(
+        <View key={i} style={styles.dayNameContainer}>
+          <Text style={[styles.dayName, this.props.style?.dayName]}>
+            {dayNames[i]}
+          </Text>
+        </View>,
+      );
+    }
+    return result;
+  }
+
+  renderWeeks(weeks: Week_Type[]) {
+    const result = [];
+    const is6Weeks = weeks.length > 5;
+
+    for (let i = 0; i < weeks.length; i++) {
+      result.push(
+        <Week
+          key={i}
+          week={weeks[i]}
+          locale={this.props.locale}
+          onPress={this.props.onPress}
+          is6Weeks={is6Weeks}
+        />,
+      );
+    }
+    return result;
+  }
+
   render() {
     const {
       item: {id, year, month},
       startDate,
       endDate,
       locale,
-      onPress,
       style,
     } = this.props;
-
     const weeks: Week_Type[] = getWeeks(id, startDate, endDate);
-    const is6Weeks = weeks.length > 5;
+
     return (
       <View style={[styles.container, style?.monthContainer]}>
         <View style={styles.monthNameContainer}>
@@ -97,24 +129,8 @@ export default class Month extends React.Component<Props> {
             {locale.year} {locale.monthNames[month - 1]}
           </Text>
         </View>
-        <View style={styles.dayNamesContainer}>
-          {locale.dayNames.map((dayName: string, i: number) => (
-            <View key={i} style={styles.dayNameContainer}>
-              <Text style={[styles.dayName, style?.dayName]}>{dayName}</Text>
-            </View>
-          ))}
-        </View>
-        <View>
-          {weeks.map((week: Week_Type, i: number) => (
-            <Week
-              key={i}
-              week={week}
-              locale={locale}
-              onPress={onPress}
-              is6Weeks={is6Weeks}
-            />
-          ))}
-        </View>
+        <View style={styles.dayNamesContainer}>{this.renderDayNames()}</View>
+        {this.renderWeeks(weeks)}
       </View>
     );
   }
@@ -140,7 +156,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    height: 60,
+    height: 40,
+    marginTop: 10,
   },
   dayName: {
     fontSize: 15,
