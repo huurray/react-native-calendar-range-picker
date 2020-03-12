@@ -52,7 +52,7 @@ const Day = ({
         {type === "end" || type === "between" ? (
           <View
             style={{
-              left: 0,
+              left: -2,
               width: 30,
               height: 30,
               backgroundColor: selectedBetweenDayBackgroundTextColor,
@@ -64,7 +64,7 @@ const Day = ({
         {type === "start" || type === "between" ? (
           <View
             style={{
-              right: 0,
+              right: -2,
               width: 30,
               height: 30,
               backgroundColor: selectedBetweenDayBackgroundTextColor,

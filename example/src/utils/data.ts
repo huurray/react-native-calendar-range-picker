@@ -21,8 +21,14 @@ export function getMonths(pastYearRange: number, futureYearRange: number) {
   for (let i = 0; i < endYear - startYear; i++) {
     const year = startYear + i;
     for (let i = 0; i < 12; i++) {
+      let id = '';
+      if (i < 9) {
+        id = `${year}-0${i + 1}`;
+      } else {
+        id = `${year}-${i + 1}`;
+      }
       months.push({
-        id: moment(new Date(`${year}-${i + 1}`)).format('YYYY-MM'),
+        id,
         year,
         month: i + 1,
       });

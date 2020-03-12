@@ -9,8 +9,15 @@ function getMonths(pastYearRange, futureYearRange) {
     for (var i = 0; i < endYear - startYear; i++) {
         var year = startYear + i;
         for (var i_1 = 0; i_1 < 12; i_1++) {
+            var id = "";
+            if (i_1 < 9) {
+                id = year + "-0" + (i_1 + 1);
+            }
+            else {
+                id = year + "-" + (i_1 + 1);
+            }
             months.push({
-                id: moment(new Date(year + "-" + (i_1 + 1))).format("YYYY-MM"),
+                id: id,
                 year: year,
                 month: i_1 + 1
             });

@@ -17,6 +17,7 @@ var CalendarList = function (_a) {
             return month.id === targetDate.format("YYYY-MM");
         });
     }, [startDate]);
+    console.log(months);
     return (<react_native_1.FlatList keyExtractor={function (item) { return item.id; }} data={months} renderItem={function (_a) {
         var item = _a.item;
         return (<react_native_1.View style={{

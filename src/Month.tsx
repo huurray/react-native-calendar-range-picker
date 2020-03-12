@@ -98,9 +98,9 @@ export default class Month extends React.Component<Props> {
           </Text>
         </View>
         <View style={styles.dayNamesContainer}>
-          {locale.dayNames.map((day: string, i: number) => (
+          {locale.dayNames.map((dayName: string, i: number) => (
             <View key={i} style={styles.dayNameContainer}>
-              <Text style={[styles.dayName, style?.dayName]}>{day}</Text>
+              <Text style={[styles.dayName, style?.dayName]}>{dayName}</Text>
             </View>
           ))}
         </View>

@@ -44,6 +44,8 @@ const CalendarList = ({
     });
   }, [startDate]);
 
+  console.log(months);
+
   return (
     <FlatList
       keyExtractor={(item: Month_Type) => item.id}

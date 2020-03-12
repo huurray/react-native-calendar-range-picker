@@ -73,8 +73,8 @@ var Month = /** @class */ (function (_super) {
           </react_native_1.Text>
         </react_native_1.View>
         <react_native_1.View style={styles.dayNamesContainer}>
-          {locale.dayNames.map(function (day, i) { return (<react_native_1.View key={i} style={styles.dayNameContainer}>
-              <react_native_1.Text style={[styles.dayName, style === null || style === void 0 ? void 0 : style.dayName]}>{day}</react_native_1.Text>
+          {locale.dayNames.map(function (dayName, i) { return (<react_native_1.View key={i} style={styles.dayNameContainer}>
+              <react_native_1.Text style={[styles.dayName, style === null || style === void 0 ? void 0 : style.dayName]}>{dayName}</react_native_1.Text>
             </react_native_1.View>); })}
         </react_native_1.View>
         <react_native_1.View>

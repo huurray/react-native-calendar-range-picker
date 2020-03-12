@@ -26,7 +26,7 @@ var Day = function (_a) {
     }, [type, dayTextColor, holidayColor, todayColor, selectedDayTextColor]);
     var mark = React.useMemo(function () { return (<>
         {type === "end" || type === "between" ? (<react_native_1.View style={{
-        left: 0,
+        left: -2,
         width: 30,
         height: 30,
         backgroundColor: selectedBetweenDayBackgroundTextColor,
@@ -34,7 +34,7 @@ var Day = function (_a) {
         top: -5
     }}/>) : null}
         {type === "start" || type === "between" ? (<react_native_1.View style={{
-        right: 0,
+        right: -2,
         width: 30,
         height: 30,
         backgroundColor: selectedBetweenDayBackgroundTextColor,
