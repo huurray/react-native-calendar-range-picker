@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import * as moment from "moment";
 // types
 import { LOCALE_TYPE } from "./utils/locale";
@@ -15,129 +15,127 @@ interface Props {
   isHoliday: boolean;
   style?: Style;
 }
-const Day = ({
-  day,
-  locale,
-  onPress,
-  isHoliday,
-  isToday,
-  containerStyle,
-  style
-}: Props) => {
-  const { date, type } = day;
 
-  const dayTextColor = style?.dayTextColor || "#1d1c1d";
-  const holidayColor = style?.holidayColor || "#f26522";
-  const todayColor = style?.todayColor || "#1692e4";
-  const selectedDayTextColor = style?.selectedDayTextColor || "#fff";
-  const selectedDayBackgroundColor =
-    style?.selectedDayBackgroundColor || "#83bc44";
-  const selectedBetweenDayTextColor =
-    style?.selectedBetweenDayTextColor || "#1d1c1d";
-  const selectedBetweenDayBackgroundTextColor =
-    style?.selectedBetweenDayBackgroundTextColor || "#F2F2F2";
+export default class Day extends React.Component<Props> {
+  constructor(props: Props) {
+    super(props);
+  }
 
-  const getTextColor = React.useCallback(() => {
-    if (type === "start" || type === "end" || type === "single")
-      return selectedDayTextColor;
-    if (type === "between") return selectedBetweenDayTextColor;
-    if (isToday) return todayColor;
-    if (isHoliday) return holidayColor;
-    return dayTextColor;
-  }, [type, dayTextColor, holidayColor, todayColor, selectedDayTextColor]);
+  shouldComponentUpdate(nextProps: Props) {
+    if (nextProps.day.type === this.props.day.type) return false;
+    return true;
+  }
 
-  const mark = React.useMemo(
-    () => (
-      <>
-        {type === "end" || type === "between" ? (
-          <View
-            style={{
-              left: -2,
-              width: 30,
-              height: 30,
-              backgroundColor: selectedBetweenDayBackgroundTextColor,
-              position: "absolute",
-              top: -5
-            }}
-          />
-        ) : null}
-        {type === "start" || type === "between" ? (
-          <View
-            style={{
-              right: -2,
-              width: 30,
-              height: 30,
-              backgroundColor: selectedBetweenDayBackgroundTextColor,
-              position: "absolute",
-              top: -5
-            }}
-          />
-        ) : null}
-        {type === "start" || type === "end" || type === "single" ? (
-          <View
-            style={{
-              width: 30,
-              height: 30,
-              backgroundColor: selectedDayBackgroundColor,
-              borderRadius: 15,
-              position: "absolute",
-              alignSelf: "center",
-              top: -5
-            }}
-          />
-        ) : null}
-      </>
-    ),
-    [type, selectedDayBackgroundColor, selectedDayBackgroundColor]
-  );
+  render() {
+    const {
+      day: { date, type },
+      locale,
+      onPress,
+      isHoliday,
+      isToday,
+      containerStyle,
+      style
+    } = this.props;
 
-  return React.useMemo(
-    () => (
+    const dayTextColor = style?.dayTextColor || "#1d1c1d";
+    const holidayColor = style?.holidayColor || "#f26522";
+    const todayColor = style?.todayColor || "#1692e4";
+    const selectedDayTextColor = style?.selectedDayTextColor || "#fff";
+    const selectedDayBackgroundColor =
+      style?.selectedDayBackgroundColor || "#83bc44";
+    const selectedBetweenDayTextColor =
+      style?.selectedBetweenDayTextColor || "#1d1c1d";
+    const selectedBetweenDayBackgroundTextColor =
+      style?.selectedBetweenDayBackgroundTextColor || "#F2F2F2";
+
+    let markStyle: any = {
+      width: 30,
+      height: 30,
+      justifyContent: "center",
+      alignItems: "center"
+    };
+    let betweenStyle: any = {
+      width: "50%",
+      height: 30,
+      position: "absolute",
+      backgroundColor: selectedBetweenDayBackgroundTextColor
+    };
+    let dayStyle: any = {
+      color: isHoliday ? holidayColor : isToday ? todayColor : dayTextColor
+    };
+
+    switch (type) {
+      case "single":
+        markStyle = {
+          ...markStyle,
+          backgroundColor: selectedDayBackgroundColor,
+          borderRadius: 15
+        };
+        dayStyle = { color: selectedDayTextColor };
+        break;
+      case "start":
+        markStyle = {
+          ...markStyle,
+          backgroundColor: selectedDayBackgroundColor,
+          borderRadius: 15
+        };
+        dayStyle = { color: selectedDayTextColor };
+        break;
+      case "end":
+        markStyle = {
+          ...markStyle,
+          backgroundColor: selectedDayBackgroundColor,
+          borderRadius: 15
+        };
+        dayStyle = { color: selectedDayTextColor };
+        break;
+      case "between":
+        markStyle = {
+          ...markStyle,
+          backgroundColor: selectedBetweenDayBackgroundTextColor,
+          width: "101%"
+        };
+        dayStyle = {
+          color: isHoliday
+            ? holidayColor
+            : isToday
+            ? todayColor
+            : selectedBetweenDayTextColor
+        };
+
+        break;
+
+      default:
+        break;
+    }
+
+    return (
       <TouchableOpacity
-        activeOpacity={1}
-        disabled={!date}
-        style={[styles.dayContainer, containerStyle, style?.dayContainer]}
         onPress={() => onPress(date)}
+        activeOpacity={1}
+        style={[
+          { flex: 1, height: 50, alignItems: "center", position: "relative" },
+          containerStyle,
+          style?.dayContainer
+        ]}
       >
-        {mark}
+        {type === "end" ? <View style={[betweenStyle, { left: 0 }]} /> : null}
+        {type === "start" ? (
+          <View style={[betweenStyle, { right: 0 }]} />
+        ) : null}
         {date ? (
-          <Text
-            style={[
-              styles.day,
-              {
-                color: getTextColor()
-              },
-              style?.day
-            ]}
-          >
-            {moment(date).date()}
-          </Text>
+          <View style={markStyle}>
+            <Text style={[{ fontSize: 15 }, dayStyle, style?.day]}>
+              {moment(date).date()}
+            </Text>
+          </View>
         ) : null}
         {isToday ? (
-          <Text style={[styles.today, { color: todayColor }]}>
+          <Text style={[{ fontSize: 12 }, { color: todayColor }]}>
             {locale.today}
           </Text>
         ) : null}
       </TouchableOpacity>
-    ),
-    [locale.today, mark, getTextColor, onPress]
-  );
-};
-
-const styles = StyleSheet.create({
-  dayContainer: {
-    flex: 1,
-    height: 50,
-    alignItems: "center",
-    position: "relative"
-  },
-  day: {
-    fontSize: 15
-  },
-  today: {
-    fontSize: 12,
-    marginTop: 7
+    );
   }
-});
-
-export default Day;
+}

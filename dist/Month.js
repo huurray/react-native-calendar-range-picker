@@ -61,10 +61,30 @@ var Month = /** @class */ (function (_super) {
         }
         return false;
     };
-    Month.prototype.render = function () {
-        var _a = this.props, _b = _a.item, id = _b.id, year = _b.year, month = _b.month, startDate = _a.startDate, endDate = _a.endDate, locale = _a.locale, onPress = _a.onPress, style = _a.style;
-        var weeks = data_1.getWeeks(id, startDate, endDate);
+    Month.prototype.renderDayNames = function () {
+        var _a;
+        var result = [];
+        var dayNames = this.props.locale.dayNames;
+        for (var i = 0; i < dayNames.length; i++) {
+            result.push(<react_native_1.View key={i} style={styles.dayNameContainer}>
+          <react_native_1.Text style={[styles.dayName, (_a = this.props.style) === null || _a === void 0 ? void 0 : _a.dayName]}>
+            {dayNames[i]}
+          </react_native_1.Text>
+        </react_native_1.View>);
+        }
+        return result;
+    };
+    Month.prototype.renderWeeks = function (weeks) {
+        var result = [];
         var is6Weeks = weeks.length > 5;
+        for (var i = 0; i < weeks.length; i++) {
+            result.push(<Week_1.default key={i} week={weeks[i]} locale={this.props.locale} onPress={this.props.onPress} is6Weeks={is6Weeks}/>);
+        }
+        return result;
+    };
+    Month.prototype.render = function () {
+        var _a = this.props, _b = _a.item, id = _b.id, year = _b.year, month = _b.month, startDate = _a.startDate, endDate = _a.endDate, locale = _a.locale, style = _a.style;
+        var weeks = data_1.getWeeks(id, startDate, endDate);
         return (<react_native_1.View style={[styles.container, style === null || style === void 0 ? void 0 : style.monthContainer]}>
         <react_native_1.View style={styles.monthNameContainer}>
           <react_native_1.Text style={[styles.monthName, style === null || style === void 0 ? void 0 : style.monthName]}>
@@ -72,14 +92,8 @@ var Month = /** @class */ (function (_super) {
             {locale.year} {locale.monthNames[month - 1]}
           </react_native_1.Text>
         </react_native_1.View>
-        <react_native_1.View style={styles.dayNamesContainer}>
-          {locale.dayNames.map(function (dayName, i) { return (<react_native_1.View key={i} style={styles.dayNameContainer}>
-              <react_native_1.Text style={[styles.dayName, style === null || style === void 0 ? void 0 : style.dayName]}>{dayName}</react_native_1.Text>
-            </react_native_1.View>); })}
-        </react_native_1.View>
-        <react_native_1.View>
-          {weeks.map(function (week, i) { return (<Week_1.default key={i} week={week} locale={locale} onPress={onPress} is6Weeks={is6Weeks}/>); })}
-        </react_native_1.View>
+        <react_native_1.View style={styles.dayNamesContainer}>{this.renderDayNames()}</react_native_1.View>
+        {this.renderWeeks(weeks)}
       </react_native_1.View>);
     };
     return Month;
@@ -105,7 +119,8 @@ var styles = react_native_1.StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        height: 60
+        height: 40,
+        marginTop: 10
     },
     dayName: {
         fontSize: 15,

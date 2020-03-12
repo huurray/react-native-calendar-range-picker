@@ -11,6 +11,5 @@ interface Props {
     endDate: string | null;
     style?: Style;
 }
-export declare const LAYOUT_HEIGHT = 370;
 declare const CalendarList: ({ pastYearRange, futureYearRange, initialNumToRender, locale, onPress, startDate, endDate, style }: Props) => JSX.Element;
 export default CalendarList;

@@ -21,7 +21,7 @@ interface Props {
   style?: Style;
 }
 
-export const LAYOUT_HEIGHT = 370;
+const LAYOUT_HEIGHT = 370;
 const CalendarList = ({
   pastYearRange,
   futureYearRange,
@@ -42,29 +42,32 @@ const CalendarList = ({
       const targetDate = startDate ? moment(startDate) : moment();
       return month.id === targetDate.format("YYYY-MM");
     });
-  }, [startDate]);
+  }, []);
 
-  console.log(months);
+  const handleRenderItem = React.useCallback(
+    ({ _, item }) => (
+      <View
+        style={{
+          height: LAYOUT_HEIGHT
+        }}
+      >
+        <Month
+          item={item}
+          locale={locale}
+          onPress={onPress}
+          startDate={startDate}
+          endDate={endDate}
+        />
+      </View>
+    ),
+    [locale.today, onPress, startDate, endDate]
+  );
 
   return (
     <FlatList
       keyExtractor={(item: Month_Type) => item.id}
       data={months}
-      renderItem={({ item }) => (
-        <View
-          style={{
-            height: LAYOUT_HEIGHT
-          }}
-        >
-          <Month
-            item={item}
-            locale={locale}
-            onPress={onPress}
-            startDate={startDate}
-            endDate={endDate}
-          />
-        </View>
-      )}
+      renderItem={handleRenderItem}
       getItemLayout={(_, index) => ({
         length: LAYOUT_HEIGHT,
         offset: LAYOUT_HEIGHT * index,
@@ -72,6 +75,7 @@ const CalendarList = ({
       })}
       initialScrollIndex={getInitialIndex()}
       initialNumToRender={initialNumToRender}
+      windowSize={81}
       style={style?.container}
     />
   );

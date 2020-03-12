@@ -74,9 +74,7 @@ const CalendarList = ({
       })}
       initialScrollIndex={getInitialIndex()}
       initialNumToRender={initialNumToRender}
-      updateCellsBatchingPeriod={20}
-      maxToRenderPerBatch={20}
-      windowSize={61}
+      windowSize={81}
       style={style?.container}
     />
   );

@@ -17,7 +17,7 @@ var React = require("react");
 var moment = require("moment");
 // components
 var CalendarList_1 = require("./CalendarList");
-// config
+// data
 var locale_1 = require("./utils/locale");
 var Index = /** @class */ (function (_super) {
     __extends(Index, _super);
@@ -72,9 +72,9 @@ var Index = /** @class */ (function (_super) {
         }
     };
     Index.prototype.render = function () {
-        var _a = this.props, style = _a.style, _b = _a.pastYearRange, pastYearRange = _b === void 0 ? 1 : _b, _c = _a.futureYearRange, futureYearRange = _c === void 0 ? 2 : _c, _d = _a.locale, locale = _d === void 0 ? locale_1.LOCALE : _d, _e = _a.initialNumToRender, initialNumToRender = _e === void 0 ? 5 : _e;
+        var _a = this.props, _b = _a.pastYearRange, pastYearRange = _b === void 0 ? 1 : _b, _c = _a.futureYearRange, futureYearRange = _c === void 0 ? 2 : _c, _d = _a.initialNumToRender, initialNumToRender = _d === void 0 ? 7 : _d, _e = _a.locale, locale = _e === void 0 ? locale_1.LOCALE : _e, style = _a.style;
         var _f = this.state, startDate = _f.startDate, endDate = _f.endDate;
-        return (<CalendarList_1.default pastYearRange={pastYearRange} futureYearRange={futureYearRange} initialNumToRender={initialNumToRender} locale={locale} onPress={this.onPress} startDate={startDate} endDate={endDate} style={style}/>);
+        return (<CalendarList_1.default initialNumToRender={initialNumToRender} pastYearRange={pastYearRange} futureYearRange={futureYearRange} locale={locale} onPress={this.onPress} startDate={startDate} endDate={endDate} style={style}/>);
     };
     return Index;
 }(React.Component));

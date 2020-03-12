@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import * as React from "react";
 import { LOCALE_TYPE } from "./utils/locale";
 import { Day_Type } from "./utils/data";
 import { Style } from "./index";
@@ -11,5 +11,9 @@ interface Props {
     isHoliday: boolean;
     style?: Style;
 }
-declare const Day: ({ day, locale, onPress, isHoliday, isToday, containerStyle, style }: Props) => JSX.Element;
-export default Day;
+export default class Day extends React.Component<Props> {
+    constructor(props: Props);
+    shouldComponentUpdate(nextProps: Props): boolean;
+    render(): JSX.Element;
+}
+export {};

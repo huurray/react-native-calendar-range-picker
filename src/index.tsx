@@ -2,7 +2,7 @@ import * as React from "react";
 import * as moment from "moment";
 // components
 import CalendarList from "./CalendarList";
-// config
+// data
 import { LOCALE, LOCALE_TYPE } from "./utils/locale";
 
 export interface Style {
@@ -101,18 +101,19 @@ export default class Index extends React.Component<Props, State> {
 
   render() {
     const {
-      style,
       pastYearRange = 1,
       futureYearRange = 2,
+      initialNumToRender = 7,
       locale = LOCALE,
-      initialNumToRender = 5
+      style
     } = this.props;
     const { startDate, endDate } = this.state;
+
     return (
       <CalendarList
+        initialNumToRender={initialNumToRender}
         pastYearRange={pastYearRange}
         futureYearRange={futureYearRange}
-        initialNumToRender={initialNumToRender}
         locale={locale}
         onPress={this.onPress}
         startDate={startDate}

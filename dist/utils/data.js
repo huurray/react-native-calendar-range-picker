@@ -63,7 +63,8 @@ function getWeeks(month, startDate, endDate) {
                     endDate > currentDateString) {
                     dayObj.type = "between";
                 }
-                dayObj.date = currentDate.clone().format("YYYY-MM-DD");
+                var date = currentDate.clone().format("YYYY-MM-DD");
+                dayObj.date = date;
                 week.push(dayObj);
                 currentDate.add(1, "day");
             }

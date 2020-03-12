@@ -5,7 +5,7 @@ import * as moment from "moment";
 import Day from "./Day";
 // types
 import { LOCALE_TYPE } from "./utils/locale";
-import { Week_Type, Day_Type } from "./utils/data";
+import { Week_Type } from "./utils/data";
 import { Style } from "./index";
 
 interface Props {
@@ -15,33 +15,52 @@ interface Props {
   is6Weeks: boolean;
   style?: Style;
 }
-const Week = ({ week, locale, onPress, is6Weeks, style }: Props) => {
-  return React.useMemo(
-    () => (
-      <View style={[styles.weekContainer, style?.weekContainer]}>
-        {week.map((day: Day_Type, i: number) => (
-          <Day
-            day={day}
-            key={i}
-            locale={locale}
-            onPress={onPress}
-            containerStyle={{ height: is6Weeks ? 45 : 50 }}
-            isToday={day.date === moment().format("YYYY-MM-DD")}
-            isHoliday={i === 0 || i === 6}
-            style={style}
-          />
-        ))}
+
+export default class Week extends React.Component<Props> {
+  constructor(props: Props) {
+    super(props);
+  }
+
+  shouldComponentUpdate(nextProps: Props) {
+    if (JSON.stringify(nextProps.week) === JSON.stringify(this.props.week))
+      return false;
+
+    return true;
+  }
+
+  renderDayNames() {
+    const result = [];
+    const today = moment().format("YYYY-MM-DD");
+
+    for (let i = 0; i < 7; i++) {
+      const targetWeek = this.props.week[i];
+      const DayComponent = targetWeek.date ? (
+        <Day
+          day={targetWeek}
+          key={targetWeek.date}
+          locale={this.props.locale}
+          onPress={this.props.onPress}
+          containerStyle={{ height: this.props.is6Weeks ? 45 : 50 }}
+          isToday={targetWeek.date === today}
+          isHoliday={i === 0 || i === 6}
+          style={this.props.style}
+        />
+      ) : (
+        <View style={{ flex: 1, height: 50 }} key={i} />
+      );
+      result.push(DayComponent);
+    }
+    return result;
+  }
+
+  render() {
+    return (
+      <View style={[styles.weekContainer, this.props.style?.weekContainer]}>
+        {this.renderDayNames()}
       </View>
-    ),
-    [
-      locale.today,
-      onPress,
-      is6Weeks,
-      JSON.stringify(week),
-      JSON.stringify(style)
-    ]
-  );
-};
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   weekContainer: {
@@ -49,5 +68,3 @@ const styles = StyleSheet.create({
     alignItems: "center"
   }
 });
-
-export default Week;

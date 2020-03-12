@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import * as React from "react";
 import { LOCALE_TYPE } from "./utils/locale";
 import { Week_Type } from "./utils/data";
 import { Style } from "./index";
@@ -9,5 +9,10 @@ interface Props {
     is6Weeks: boolean;
     style?: Style;
 }
-declare const Week: ({ week, locale, onPress, is6Weeks, style }: Props) => JSX.Element;
-export default Week;
+export default class Week extends React.Component<Props> {
+    constructor(props: Props);
+    shouldComponentUpdate(nextProps: Props): boolean;
+    renderDayNames(): JSX.Element[];
+    render(): JSX.Element;
+}
+export {};
