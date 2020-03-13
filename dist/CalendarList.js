@@ -26,15 +26,15 @@ var CalendarList = function (_a) {
       </react_native_1.View>);
     }, [locale.today, onPress, startDate, endDate]);
     return (<react_native_1.View style={[
-        { flex: 1, position: "relative", backgroundColor: "#fff" },
+        { position: "relative", backgroundColor: "#fff" },
         style === null || style === void 0 ? void 0 : style.container
     ]}>
       <react_native_1.View style={{
-        position: "absolute",
-        left: 0,
         top: 0,
-        bottom: 0,
         right: 0,
+        left: 0,
+        bottom: 0,
+        position: "absolute",
         justifyContent: "center",
         alignItems: "center"
     }}>

@@ -65,16 +65,16 @@ const CalendarList = ({
   return (
     <View
       style={[
-        {flex: 1, position: 'relative', backgroundColor: '#fff'},
+        {position: 'relative', backgroundColor: '#fff'},
         style?.container,
       ]}>
       <View
         style={{
-          position: 'absolute',
-          left: 0,
           top: 0,
-          bottom: 0,
           right: 0,
+          left: 0,
+          bottom: 0,
+          position: 'absolute',
           justifyContent: 'center',
           alignItems: 'center',
         }}>
