@@ -41,7 +41,7 @@ Common props you may want to specify include:
 | Properties           | PropType             | Description                                                                                             |
 | -------------------- | -------------------- | ------------------------------------------------------------------------------------------------------- |
 | `onChange`           | `func`               | (**Required**) Handler which gets executed on day press including date data.(start, end or single date) |
-| `pastYearRange`      | `number`             | Amount of months allowed to scroll to the past. (default = 1)                                           |
+| `pastYearRange`      | `number`             | Amount of months allowed to scroll to the past. (default = 0)                                           |
 | `futureYearRange`    | `number`             | Amount of months allowed to scroll to the future. (default = 2)                                         |
 | `locale`             | `object`             | Can be localized by adding custom locales to locale object.                                             |
 | `startDate`          | `string(YYYY-MM-DD)` | Initially visible start date.                                                                           |
@@ -86,11 +86,9 @@ const CUSTOM_LOCALE = {
   style={{
     container: {},
     monthContainer: {},
-    monthName: {},
-    dayName: {},
-    weekContainer: {},
-    dayContainer: {},
-    day: {},
+    monthNameText: {},
+    dayNameText: {},
+    dayText: {},
     dayTextColor: '#Hex',
     holidayColor: '#Hex',
     todayColor: '#Hex',

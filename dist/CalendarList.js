@@ -25,10 +25,26 @@ var CalendarList = function (_a) {
         <Month_1.default item={item} locale={locale} onPress={onPress} startDate={startDate} endDate={endDate}/>
       </react_native_1.View>);
     }, [locale.today, onPress, startDate, endDate]);
-    return (<react_native_1.FlatList keyExtractor={function (item) { return item.id; }} data={months} renderItem={handleRenderItem} getItemLayout={function (_, index) { return ({
+    return (<react_native_1.View style={[
+        { flex: 1, position: "relative", backgroundColor: "#fff" },
+        style === null || style === void 0 ? void 0 : style.container
+    ]}>
+      <react_native_1.View style={{
+        position: "absolute",
+        left: 0,
+        top: 0,
+        bottom: 0,
+        right: 0,
+        justifyContent: "center",
+        alignItems: "center"
+    }}>
+        <react_native_1.ActivityIndicator />
+      </react_native_1.View>
+      <react_native_1.FlatList keyExtractor={function (item) { return item.id; }} data={months} renderItem={handleRenderItem} getItemLayout={function (_, index) { return ({
         length: LAYOUT_HEIGHT,
         offset: LAYOUT_HEIGHT * index,
         index: index
-    }); }} initialScrollIndex={getInitialIndex()} initialNumToRender={initialNumToRender} windowSize={81} style={style === null || style === void 0 ? void 0 : style.container}/>);
+    }); }} initialScrollIndex={getInitialIndex()} initialNumToRender={initialNumToRender} windowSize={61}/>
+    </react_native_1.View>);
 };
 exports.default = CalendarList;

@@ -2,9 +2,9 @@ import moment from 'moment';
 export interface Day_Type {
   date: string | null;
   type: string | null;
+  isToday: boolean;
+  isHoliday: boolean;
 }
-
-export type Week_Type = Day_Type[];
 
 export interface Month_Type {
   year: number;
@@ -37,23 +37,24 @@ export function getMonths(pastYearRange: number, futureYearRange: number) {
   return months;
 }
 
-export function getWeeks(
+export function getDays(
   month: string,
   startDate: string | null,
   endDate: string | null,
 ) {
+  const today = moment().format('YYYY-MM-DD');
   const currentMonth = moment(month).month();
   const currentDate = moment(month).startOf('month');
-  let week: any = [];
-  let weeks: any = [];
+  let days: any = [];
   let dayObj: any = {};
 
   do {
-    week = [];
     for (let i = 0; i < 7; i++) {
       dayObj = {
         type: null,
         date: null,
+        isToday: false,
+        isHoliday: false,
       };
       const currentDateString = currentDate.format('YYYY-MM-DD');
       if (i == currentDate.days() && currentDate.month() == currentMonth) {
@@ -83,7 +84,13 @@ export function getWeeks(
 
         const date = currentDate.clone().format('YYYY-MM-DD');
         dayObj.date = date;
-        week.push(dayObj);
+        if (date === today) {
+          dayObj.isToday = true;
+        }
+        if (i === 0 || i === 6) {
+          dayObj.isHoliday = true;
+        }
+        days.push(dayObj);
         currentDate.add(1, 'day');
       } else {
         if (
@@ -95,12 +102,10 @@ export function getWeeks(
           dayObj.type = 'between';
         }
 
-        week.push(dayObj);
+        days.push(dayObj);
       }
     }
-
-    weeks.push(week);
   } while (currentDate.month() == currentMonth);
 
-  return weeks;
+  return days;
 }

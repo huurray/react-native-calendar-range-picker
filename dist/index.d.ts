@@ -3,11 +3,9 @@ import { LOCALE_TYPE } from "./utils/locale";
 export interface Style {
     container?: {};
     monthContainer?: {};
-    monthName?: {};
-    dayName?: {};
-    weekContainer?: {};
-    dayContainer?: {};
-    day?: {};
+    monthNameText?: {};
+    dayNameText?: {};
+    dayText?: {};
     dayTextColor?: string;
     holidayColor?: string;
     todayColor?: string;

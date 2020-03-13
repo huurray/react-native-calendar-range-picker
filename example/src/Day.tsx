@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text} from 'react-native';
 import moment from 'moment';
 // types
 import {LOCALE_TYPE} from './utils/locale';
@@ -7,12 +7,8 @@ import {Day_Type} from './utils/data';
 import {Style} from './index';
 
 interface Props {
-  containerStyle?: {};
   day: Day_Type;
   locale: LOCALE_TYPE;
-  onPress: (date: any) => void;
-  isToday: boolean;
-  isHoliday: boolean;
   style?: Style;
 }
 
@@ -28,12 +24,8 @@ export default class Day extends React.Component<Props> {
 
   render() {
     const {
-      day: {date, type},
+      day: {date, type, isHoliday, isToday},
       locale,
-      onPress,
-      isHoliday,
-      isToday,
-      containerStyle,
       style,
     } = this.props;
 
@@ -110,19 +102,12 @@ export default class Day extends React.Component<Props> {
     }
 
     return (
-      <TouchableOpacity
-        onPress={() => onPress(date)}
-        activeOpacity={1}
-        style={[
-          {flex: 1, height: 50, alignItems: 'center', position: 'relative'},
-          containerStyle,
-          style?.dayContainer,
-        ]}>
+      <>
         {type === 'end' ? <View style={[betweenStyle, {left: 0}]} /> : null}
         {type === 'start' ? <View style={[betweenStyle, {right: 0}]} /> : null}
         {date ? (
           <View style={markStyle}>
-            <Text style={[{fontSize: 15}, dayStyle, style?.day]}>
+            <Text style={[{fontSize: 15}, dayStyle, style?.dayText]}>
               {moment(date).date()}
             </Text>
           </View>
@@ -132,7 +117,7 @@ export default class Day extends React.Component<Props> {
             {locale.today}
           </Text>
         ) : null}
-      </TouchableOpacity>
+      </>
     );
   }
 }

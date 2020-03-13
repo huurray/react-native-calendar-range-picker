@@ -26,18 +26,19 @@ function getMonths(pastYearRange, futureYearRange) {
     return months;
 }
 exports.getMonths = getMonths;
-function getWeeks(month, startDate, endDate) {
+function getDays(month, startDate, endDate) {
+    var today = moment().format("YYYY-MM-DD");
     var currentMonth = moment(month).month();
     var currentDate = moment(month).startOf("month");
-    var week = [];
-    var weeks = [];
+    var days = [];
     var dayObj = {};
     do {
-        week = [];
         for (var i = 0; i < 7; i++) {
             dayObj = {
                 type: null,
-                date: null
+                date: null,
+                isToday: false,
+                isHoliday: false
             };
             var currentDateString = currentDate.format("YYYY-MM-DD");
             if (i == currentDate.days() && currentDate.month() == currentMonth) {
@@ -65,7 +66,13 @@ function getWeeks(month, startDate, endDate) {
                 }
                 var date = currentDate.clone().format("YYYY-MM-DD");
                 dayObj.date = date;
-                week.push(dayObj);
+                if (date === today) {
+                    dayObj.isToday = true;
+                }
+                if (i === 0 || i === 6) {
+                    dayObj.isHoliday = true;
+                }
+                days.push(dayObj);
                 currentDate.add(1, "day");
             }
             else {
@@ -75,11 +82,10 @@ function getWeeks(month, startDate, endDate) {
                     endDate >= startDate) {
                     dayObj.type = "between";
                 }
-                week.push(dayObj);
+                days.push(dayObj);
             }
         }
-        weeks.push(week);
     } while (currentDate.month() == currentMonth);
-    return weeks;
+    return days;
 }
-exports.getWeeks = getWeeks;
+exports.getDays = getDays;

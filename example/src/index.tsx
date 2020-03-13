@@ -8,11 +8,9 @@ import {LOCALE, LOCALE_TYPE} from './utils/locale';
 export interface Style {
   container?: {};
   monthContainer?: {};
-  monthName?: {};
-  dayName?: {};
-  weekContainer?: {};
-  dayContainer?: {};
-  day?: {};
+  monthNameText?: {};
+  dayNameText?: {};
+  dayText?: {};
   dayTextColor?: string;
   holidayColor?: string;
   todayColor?: string;
@@ -101,7 +99,7 @@ export default class Index extends React.Component<Props, State> {
 
   render() {
     const {
-      pastYearRange = 1,
+      pastYearRange = 0,
       futureYearRange = 2,
       initialNumToRender = 7,
       locale = LOCALE,

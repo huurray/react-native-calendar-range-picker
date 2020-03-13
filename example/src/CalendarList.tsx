@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import {FlatList, View} from 'react-native';
+import {FlatList, View, ActivityIndicator} from 'react-native';
 // components
 import Month from './Month';
 // data
@@ -63,20 +63,37 @@ const CalendarList = ({
   );
 
   return (
-    <FlatList
-      keyExtractor={(item: Month_Type) => item.id}
-      data={months}
-      renderItem={handleRenderItem}
-      getItemLayout={(_, index) => ({
-        length: LAYOUT_HEIGHT,
-        offset: LAYOUT_HEIGHT * index,
-        index,
-      })}
-      initialScrollIndex={getInitialIndex()}
-      initialNumToRender={initialNumToRender}
-      windowSize={81}
-      style={style?.container}
-    />
+    <View
+      style={[
+        {flex: 1, position: 'relative', backgroundColor: '#fff'},
+        style?.container,
+      ]}>
+      <View
+        style={{
+          position: 'absolute',
+          left: 0,
+          top: 0,
+          bottom: 0,
+          right: 0,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <ActivityIndicator />
+      </View>
+      <FlatList
+        keyExtractor={(item: Month_Type) => item.id}
+        data={months}
+        renderItem={handleRenderItem}
+        getItemLayout={(_, index) => ({
+          length: LAYOUT_HEIGHT,
+          offset: LAYOUT_HEIGHT * index,
+          index,
+        })}
+        initialScrollIndex={getInitialIndex()}
+        initialNumToRender={initialNumToRender}
+        windowSize={61}
+      />
+    </View>
   );
 };
 

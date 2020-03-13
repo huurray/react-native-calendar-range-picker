@@ -17,9 +17,11 @@ var React = require("react");
 var react_native_1 = require("react-native");
 var moment = require("moment");
 // components
-var Week_1 = require("./Week");
+var Day_1 = require("./Day");
 // types
 var data_1 = require("./utils/data");
+var PADDING_HORIZONTAL = 10;
+var SCREEN_WIDTH = react_native_1.Dimensions.get("window").width;
 var Month = /** @class */ (function (_super) {
     __extends(Month, _super);
     function Month(props) {
@@ -67,43 +69,60 @@ var Month = /** @class */ (function (_super) {
         var dayNames = this.props.locale.dayNames;
         for (var i = 0; i < dayNames.length; i++) {
             result.push(<react_native_1.View key={i} style={styles.dayNameContainer}>
-          <react_native_1.Text style={[styles.dayName, (_a = this.props.style) === null || _a === void 0 ? void 0 : _a.dayName]}>
+          <react_native_1.Text style={[styles.dayName, (_a = this.props.style) === null || _a === void 0 ? void 0 : _a.dayNameText]}>
             {dayNames[i]}
           </react_native_1.Text>
         </react_native_1.View>);
         }
         return result;
     };
-    Month.prototype.renderWeeks = function (weeks) {
+    Month.prototype.renderDays = function () {
+        var _this = this;
         var result = [];
-        var is6Weeks = weeks.length > 5;
-        for (var i = 0; i < weeks.length; i++) {
-            result.push(<Week_1.default key={i} week={weeks[i]} locale={this.props.locale} onPress={this.props.onPress} is6Weeks={is6Weeks}/>);
+        var days = data_1.getDays(this.props.item.id, this.props.startDate, this.props.endDate);
+        var is6Weeks = days.length > 7 * 5;
+        var _loop_1 = function (i) {
+            var day = days[i];
+            var dayComponent = (<react_native_1.View style={{ width: (SCREEN_WIDTH - PADDING_HORIZONTAL * 2) / 7 }} key={i}/>);
+            if (day.date) {
+                dayComponent = (<react_native_1.TouchableOpacity style={{
+                    width: (SCREEN_WIDTH - PADDING_HORIZONTAL * 2) / 7,
+                    height: is6Weeks ? 45 : 50,
+                    alignItems: "center"
+                }} onPress={function () { return _this.props.onPress(day.date || ""); }} activeOpacity={1} key={day.date || i}>
+            <Day_1.default day={day} locale={this_1.props.locale} style={this_1.props.style}/>
+          </react_native_1.TouchableOpacity>);
+            }
+            result.push(dayComponent);
+        };
+        var this_1 = this;
+        for (var i = 0; i < days.length; i++) {
+            _loop_1(i);
         }
         return result;
     };
     Month.prototype.render = function () {
-        var _a = this.props, _b = _a.item, id = _b.id, year = _b.year, month = _b.month, startDate = _a.startDate, endDate = _a.endDate, locale = _a.locale, style = _a.style;
-        var weeks = data_1.getWeeks(id, startDate, endDate);
-        return (<react_native_1.View style={[styles.container, style === null || style === void 0 ? void 0 : style.monthContainer]}>
+        var _a = this.props, _b = _a.item, year = _b.year, month = _b.month, locale = _a.locale, style = _a.style;
+        return (<react_native_1.View style={[styles.monthContainer, style === null || style === void 0 ? void 0 : style.monthContainer]}>
         <react_native_1.View style={styles.monthNameContainer}>
-          <react_native_1.Text style={[styles.monthName, style === null || style === void 0 ? void 0 : style.monthName]}>
+          <react_native_1.Text style={[styles.monthName, style === null || style === void 0 ? void 0 : style.monthNameText]}>
             {year}
             {locale.year} {locale.monthNames[month - 1]}
           </react_native_1.Text>
         </react_native_1.View>
         <react_native_1.View style={styles.dayNamesContainer}>{this.renderDayNames()}</react_native_1.View>
-        {this.renderWeeks(weeks)}
+        <react_native_1.View style={styles.dayContainer}>{this.renderDays()}</react_native_1.View>
       </react_native_1.View>);
     };
     return Month;
 }(React.Component));
 exports.default = Month;
 var styles = react_native_1.StyleSheet.create({
-    container: {
+    monthContainer: {
         paddingTop: 20,
-        paddingHorizontal: 10,
-        marginBottom: 20
+        paddingHorizontal: PADDING_HORIZONTAL,
+        paddingBottom: 30,
+        backgroundColor: "#fff"
     },
     monthNameContainer: {
         paddingLeft: 20
@@ -128,6 +147,6 @@ var styles = react_native_1.StyleSheet.create({
     },
     dayContainer: {
         flexDirection: "row",
-        alignItems: "center"
+        flexWrap: "wrap"
     }
 });

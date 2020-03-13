@@ -11,39 +11,28 @@ import {Style} from './index';
 interface Props {
   week: Week_Type;
   locale: LOCALE_TYPE;
-  onPress: (date: string) => void;
+  handleChange: (date: string) => void;
   is6Weeks: boolean;
   style?: Style;
 }
 
-export default class Week extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
-
-  shouldComponentUpdate(nextProps: Props) {
-    if (JSON.stringify(nextProps.week) === JSON.stringify(this.props.week))
-      return false;
-
-    return true;
-  }
-
-  renderDayNames() {
+const Week = ({week, handleChange, locale, style, is6Weeks}: any) => {
+  const renderWeek = () => {
     const result = [];
     const today = moment().format('YYYY-MM-DD');
 
     for (let i = 0; i < 7; i++) {
-      const targetWeek = this.props.week[i];
+      const targetWeek = week[i];
       const DayComponent = targetWeek.date ? (
         <Day
           day={targetWeek}
           key={targetWeek.date}
-          locale={this.props.locale}
-          onPress={this.props.onPress}
-          containerStyle={{height: this.props.is6Weeks ? 45 : 50}}
+          locale={locale}
+          handleChange={handleChange}
+          containerStyle={{height: is6Weeks ? 45 : 50}}
           isToday={targetWeek.date === today}
           isHoliday={i === 0 || i === 6}
-          style={this.props.style}
+          style={style}
         />
       ) : (
         <View style={{flex: 1, height: 50}} key={i} />
@@ -51,16 +40,16 @@ export default class Week extends React.Component<Props> {
       result.push(DayComponent);
     }
     return result;
-  }
+  };
 
-  render() {
-    return (
-      <View style={[styles.weekContainer, this.props.style?.weekContainer]}>
-        {this.renderDayNames()}
-      </View>
-    );
-  }
-}
+  return (
+    <View style={[styles.weekContainer, style?.weekContainer]}>
+      {renderWeek()}
+    </View>
+  );
+};
+
+export default Week;
 
 const styles = StyleSheet.create({
   weekContainer: {

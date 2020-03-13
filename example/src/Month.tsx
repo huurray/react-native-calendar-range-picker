@@ -1,10 +1,16 @@
 import React from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
 import moment from 'moment';
 // components
-import Week from './Week';
+import Day from './Day';
 // types
-import {getWeeks, Week_Type, Month_Type} from './utils/data';
+import {getDays, Day_Type, Month_Type} from './utils/data';
 import {LOCALE_TYPE} from './utils/locale';
 import {Style} from './index';
 
@@ -17,6 +23,8 @@ interface Props {
   style?: Style;
 }
 
+const PADDING_HORIZONTAL = 10;
+const {width: SCREEN_WIDTH} = Dimensions.get('window');
 export default class Month extends React.Component<Props> {
   constructor(props: Props) {
     super(props);
@@ -84,7 +92,7 @@ export default class Month extends React.Component<Props> {
     for (let i = 0; i < dayNames.length; i++) {
       result.push(
         <View key={i} style={styles.dayNameContainer}>
-          <Text style={[styles.dayName, this.props.style?.dayName]}>
+          <Text style={[styles.dayName, this.props.style?.dayNameText]}>
             {dayNames[i]}
           </Text>
         </View>,
@@ -93,54 +101,75 @@ export default class Month extends React.Component<Props> {
     return result;
   }
 
-  renderWeeks(weeks: Week_Type[]) {
+  renderDays() {
     const result = [];
-    const is6Weeks = weeks.length > 5;
+    const days: Day_Type[] = getDays(
+      this.props.item.id,
+      this.props.startDate,
+      this.props.endDate,
+    );
+    const is6Weeks = days.length > 7 * 5;
 
-    for (let i = 0; i < weeks.length; i++) {
-      result.push(
-        <Week
+    for (let i = 0; i < days.length; i++) {
+      const day = days[i];
+      let dayComponent = (
+        <View
+          style={{width: (SCREEN_WIDTH - PADDING_HORIZONTAL * 2) / 7}}
           key={i}
-          week={weeks[i]}
-          locale={this.props.locale}
-          onPress={this.props.onPress}
-          is6Weeks={is6Weeks}
-        />,
+        />
       );
+      if (day.date) {
+        dayComponent = (
+          <TouchableOpacity
+            style={{
+              width: (SCREEN_WIDTH - PADDING_HORIZONTAL * 2) / 7,
+              height: is6Weeks ? 45 : 50,
+              alignItems: 'center',
+            }}
+            onPress={() => this.props.onPress(day.date || '')}
+            activeOpacity={1}
+            key={day.date || i}>
+            <Day
+              day={day}
+              locale={this.props.locale}
+              style={this.props.style}
+            />
+          </TouchableOpacity>
+        );
+      }
+      result.push(dayComponent);
     }
     return result;
   }
 
   render() {
     const {
-      item: {id, year, month},
-      startDate,
-      endDate,
+      item: {year, month},
       locale,
       style,
     } = this.props;
-    const weeks: Week_Type[] = getWeeks(id, startDate, endDate);
 
     return (
-      <View style={[styles.container, style?.monthContainer]}>
+      <View style={[styles.monthContainer, style?.monthContainer]}>
         <View style={styles.monthNameContainer}>
-          <Text style={[styles.monthName, style?.monthName]}>
+          <Text style={[styles.monthName, style?.monthNameText]}>
             {year}
             {locale.year} {locale.monthNames[month - 1]}
           </Text>
         </View>
         <View style={styles.dayNamesContainer}>{this.renderDayNames()}</View>
-        {this.renderWeeks(weeks)}
+        <View style={styles.dayContainer}>{this.renderDays()}</View>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  monthContainer: {
     paddingTop: 20,
-    paddingHorizontal: 10,
-    marginBottom: 20,
+    paddingHorizontal: PADDING_HORIZONTAL,
+    paddingBottom: 30,
+    backgroundColor: '#fff',
   },
   monthNameContainer: {
     paddingLeft: 20,
@@ -165,6 +194,6 @@ const styles = StyleSheet.create({
   },
   dayContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
+    flexWrap: 'wrap',
   },
 });

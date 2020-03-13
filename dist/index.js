@@ -72,7 +72,7 @@ var Index = /** @class */ (function (_super) {
         }
     };
     Index.prototype.render = function () {
-        var _a = this.props, _b = _a.pastYearRange, pastYearRange = _b === void 0 ? 1 : _b, _c = _a.futureYearRange, futureYearRange = _c === void 0 ? 2 : _c, _d = _a.initialNumToRender, initialNumToRender = _d === void 0 ? 7 : _d, _e = _a.locale, locale = _e === void 0 ? locale_1.LOCALE : _e, style = _a.style;
+        var _a = this.props, _b = _a.pastYearRange, pastYearRange = _b === void 0 ? 0 : _b, _c = _a.futureYearRange, futureYearRange = _c === void 0 ? 2 : _c, _d = _a.initialNumToRender, initialNumToRender = _d === void 0 ? 7 : _d, _e = _a.locale, locale = _e === void 0 ? locale_1.LOCALE : _e, style = _a.style;
         var _f = this.state, startDate = _f.startDate, endDate = _f.endDate;
         return (<CalendarList_1.default initialNumToRender={initialNumToRender} pastYearRange={pastYearRange} futureYearRange={futureYearRange} locale={locale} onPress={this.onPress} startDate={startDate} endDate={endDate} style={style}/>);
     };

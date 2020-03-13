@@ -38,7 +38,7 @@ var Day = /** @class */ (function (_super) {
         return true;
     };
     Day.prototype.render = function () {
-        var _a = this.props, _b = _a.day, date = _b.date, type = _b.type, locale = _a.locale, onPress = _a.onPress, isHoliday = _a.isHoliday, isToday = _a.isToday, containerStyle = _a.containerStyle, style = _a.style;
+        var _a = this.props, _b = _a.day, date = _b.date, type = _b.type, isHoliday = _b.isHoliday, isToday = _b.isToday, locale = _a.locale, style = _a.style;
         var dayTextColor = (style === null || style === void 0 ? void 0 : style.dayTextColor) || "#1d1c1d";
         var holidayColor = (style === null || style === void 0 ? void 0 : style.holidayColor) || "#f26522";
         var todayColor = (style === null || style === void 0 ? void 0 : style.todayColor) || "#1692e4";
@@ -87,22 +87,18 @@ var Day = /** @class */ (function (_super) {
             default:
                 break;
         }
-        return (<react_native_1.TouchableOpacity onPress={function () { return onPress(date); }} activeOpacity={1} style={[
-            { flex: 1, height: 50, alignItems: "center", position: "relative" },
-            containerStyle,
-            style === null || style === void 0 ? void 0 : style.dayContainer
-        ]}>
+        return (<>
         {type === "end" ? <react_native_1.View style={[betweenStyle, { left: 0 }]}/> : null}
         {type === "start" ? (<react_native_1.View style={[betweenStyle, { right: 0 }]}/>) : null}
         {date ? (<react_native_1.View style={markStyle}>
-            <react_native_1.Text style={[{ fontSize: 15 }, dayStyle, style === null || style === void 0 ? void 0 : style.day]}>
+            <react_native_1.Text style={[{ fontSize: 15 }, dayStyle, style === null || style === void 0 ? void 0 : style.dayText]}>
               {moment(date).date()}
             </react_native_1.Text>
           </react_native_1.View>) : null}
         {isToday ? (<react_native_1.Text style={[{ fontSize: 12 }, { color: todayColor }]}>
             {locale.today}
           </react_native_1.Text>) : null}
-      </react_native_1.TouchableOpacity>);
+      </>);
     };
     return Day;
 }(React.Component));
