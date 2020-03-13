@@ -30,10 +30,8 @@ var CalendarList = function (_a) {
         style === null || style === void 0 ? void 0 : style.container
     ]}>
       <react_native_1.View style={{
-        top: 0,
-        right: 0,
-        left: 0,
-        bottom: 0,
+        width: "100%",
+        top: 25,
         position: "absolute",
         justifyContent: "center",
         alignItems: "center"

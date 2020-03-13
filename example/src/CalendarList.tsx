@@ -70,10 +70,8 @@ const CalendarList = ({
       ]}>
       <View
         style={{
-          top: 0,
-          right: 0,
-          left: 0,
-          bottom: 0,
+          width: '100%',
+          top: 25,
           position: 'absolute',
           justifyContent: 'center',
           alignItems: 'center',
