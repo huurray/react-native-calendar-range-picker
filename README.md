@@ -17,21 +17,25 @@ $ npm install react-native-calendar-range-picker
 ```jsx
 import Calendar from "react-native-calendar-range-picker";
 
-<Calendar
-  startDate="2020-05-05"
-  endDate="2020-05-12"
-  onChange={({ startDate, endDate }) => console.log({ startDate, endDate })}
-/>;
+<View style={{ flex: 1 }}>
+  <Calendar
+    startDate="2020-05-05"
+    endDate="2020-05-12"
+    onChange={({ startDate, endDate }) => console.log({ startDate, endDate })}
+  />
+</View>;
 ```
 
 ### Select single date
 
 ```jsx
-<Calendar
-  startDate="2020-05-05"
-  singleSelectMode
-  onChange={date => console.log(date)}
-/>
+<View style={{ height: 600 }}>
+  <Calendar
+    startDate="2020-05-05"
+    singleSelectMode
+    onChange={date => console.log(date)}
+  />
+</View>
 ```
 
 ## Props

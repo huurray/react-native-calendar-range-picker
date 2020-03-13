@@ -49,6 +49,7 @@ const CalendarList = ({
       <View
         style={{
           height: LAYOUT_HEIGHT,
+          backgroundColor: '#fff',
         }}>
         <Month
           item={item}
@@ -63,15 +64,13 @@ const CalendarList = ({
   );
 
   return (
-    <View
-      style={[
-        {position: 'relative', backgroundColor: '#fff'},
-        style?.container,
-      ]}>
+    <View style={[{position: 'relative'}, style?.container]}>
       <View
         style={{
-          width: '100%',
-          top: 25,
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
           position: 'absolute',
           justifyContent: 'center',
           alignItems: 'center',

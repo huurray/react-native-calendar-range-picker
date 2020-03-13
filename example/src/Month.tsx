@@ -114,7 +114,10 @@ export default class Month extends React.Component<Props> {
       const day = days[i];
       let dayComponent = (
         <View
-          style={{width: (SCREEN_WIDTH - PADDING_HORIZONTAL * 2) / 7}}
+          style={{
+            width: (SCREEN_WIDTH - PADDING_HORIZONTAL * 2) / 7,
+            height: is6Weeks ? 45 : 50,
+          }}
           key={i}
         />
       );
@@ -168,16 +171,17 @@ const styles = StyleSheet.create({
   monthContainer: {
     paddingTop: 20,
     paddingHorizontal: PADDING_HORIZONTAL,
-    paddingBottom: 30,
     backgroundColor: '#fff',
   },
   monthNameContainer: {
+    height: 30,
     paddingLeft: 20,
   },
   monthName: {
     fontSize: 16,
   },
   dayNamesContainer: {
+    height: 50,
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -185,8 +189,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    height: 40,
-    marginTop: 10,
   },
   dayName: {
     fontSize: 15,

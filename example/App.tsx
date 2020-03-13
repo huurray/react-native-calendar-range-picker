@@ -66,7 +66,9 @@ const App = () => {
           </TouchableOpacity>
         </View>
 
-        <Calendar onChange={handleChange} />
+        <View style={{flex: 1}}>
+          <Calendar onChange={handleChange} />
+        </View>
       </SafeAreaView>
     </>
   );
