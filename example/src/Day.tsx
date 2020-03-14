@@ -53,7 +53,7 @@ export default class Day extends React.Component<Props> {
       backgroundColor: selectedBetweenDayBackgroundTextColor,
     };
     let dayStyle: any = {
-      color: isHoliday ? holidayColor : isToday ? todayColor : dayTextColor,
+      color: isToday ? todayColor : isHoliday ? holidayColor : dayTextColor,
     };
 
     switch (type) {
@@ -88,10 +88,10 @@ export default class Day extends React.Component<Props> {
           width: '101%',
         };
         dayStyle = {
-          color: isHoliday
-            ? holidayColor
-            : isToday
+          color: isToday
             ? todayColor
+            : isHoliday
+            ? holidayColor
             : selectedBetweenDayTextColor,
         };
 
