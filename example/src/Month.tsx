@@ -34,28 +34,28 @@ export default class Month extends React.Component<Props> {
     const newId = nextProps.item.id;
     if (
       nextProps.startDate &&
-      moment(nextProps.startDate).format('YYYY-MM') == newId
+      moment(nextProps.startDate).format('YYYY-MM') === newId
     ) {
       return true;
     }
 
     if (
       nextProps.endDate &&
-      moment(nextProps.endDate).format('YYYY-MM') == newId
+      moment(nextProps.endDate).format('YYYY-MM') === newId
     ) {
       return true;
     }
 
     if (
       this.props.startDate &&
-      moment(this.props.startDate).format('YYYY-MM') == newId
+      moment(this.props.startDate).format('YYYY-MM') === newId
     ) {
       return true;
     }
 
     if (
       this.props.endDate &&
-      moment(this.props.endDate).format('YYYY-MM') == newId
+      moment(this.props.endDate).format('YYYY-MM') === newId
     ) {
       return true;
     }
@@ -78,6 +78,14 @@ export default class Month extends React.Component<Props> {
         moment(newId).format('YYYYMM') &&
       moment(this.props.endDate).format('YYYYMM') >
         moment(newId).format('YYYYMM')
+    ) {
+      return true;
+    }
+
+    if (
+      this.props.locale &&
+      nextProps.locale &&
+      this.props.locale.today !== nextProps.locale.today
     ) {
       return true;
     }
@@ -157,7 +165,11 @@ export default class Month extends React.Component<Props> {
         <View style={styles.monthNameContainer}>
           <Text style={[styles.monthName, style?.monthNameText]}>
             {year}
-            {locale.year} {locale.monthNames[month - 1]}
+            {locale.year}
+          </Text>
+          <Text
+            style={[styles.monthName, {marginLeft: 5}, style?.monthNameText]}>
+            {locale.monthNames[month - 1]}
           </Text>
         </View>
         <View style={styles.dayNamesContainer}>{this.renderDayNames()}</View>
@@ -174,6 +186,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   monthNameContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
     height: 30,
     paddingLeft: 20,
   },
