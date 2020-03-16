@@ -57,6 +57,7 @@ const CalendarList = ({
           onPress={onPress}
           startDate={startDate}
           endDate={endDate}
+          style={style}
         />
       </View>
     ),
