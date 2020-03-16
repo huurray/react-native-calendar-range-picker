@@ -37,6 +37,7 @@ interface Props {
   style?: Style;
   singleSelectMode?: boolean;
   initialNumToRender?: number;
+  flatListProps?: any;
 }
 
 export default class Index extends React.Component<Props, State> {
@@ -103,6 +104,7 @@ export default class Index extends React.Component<Props, State> {
       futureYearRange = 2,
       initialNumToRender = 7,
       locale = LOCALE,
+      flatListProps,
       style
     } = this.props;
     const { startDate, endDate } = this.state;
@@ -117,6 +119,7 @@ export default class Index extends React.Component<Props, State> {
         startDate={startDate}
         endDate={endDate}
         style={style}
+        flatListProps={flatListProps}
       />
     );
   }

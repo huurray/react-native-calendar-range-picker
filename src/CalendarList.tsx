@@ -19,6 +19,7 @@ interface Props {
   startDate: string | null;
   endDate: string | null;
   style?: Style;
+  flatListProps?: any;
 }
 
 const LAYOUT_HEIGHT = 370;
@@ -30,6 +31,7 @@ const CalendarList = ({
   onPress,
   startDate,
   endDate,
+  flatListProps,
   style
 }: Props) => {
   const months: Month_Type[] = React.useMemo(
@@ -48,7 +50,8 @@ const CalendarList = ({
     ({ _, item }) => (
       <View
         style={{
-          height: LAYOUT_HEIGHT
+          height: LAYOUT_HEIGHT,
+          backgroundColor: "#fff"
         }}
       >
         <Month
@@ -65,16 +68,13 @@ const CalendarList = ({
   );
 
   return (
-    <View
-      style={[
-        { position: "relative", backgroundColor: "#fff" },
-        style?.container
-      ]}
-    >
+    <View style={[{ position: "relative" }, style?.container]}>
       <View
         style={{
-          width: "100%",
-          top: 25,
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
           position: "absolute",
           justifyContent: "center",
           alignItems: "center"
@@ -91,9 +91,11 @@ const CalendarList = ({
           offset: LAYOUT_HEIGHT * index,
           index
         })}
+        {...flatListProps}
         initialScrollIndex={getInitialIndex()}
         initialNumToRender={initialNumToRender}
         windowSize={61}
+        showsVerticalScrollIndicator={false}
       />
     </View>
   );
