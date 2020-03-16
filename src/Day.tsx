@@ -103,10 +103,8 @@ export default class Day extends React.Component<Props> {
 
     return (
       <>
-        {type === "end" ? <View style={[betweenStyle, { left: 0 }]} /> : null}
-        {type === "start" ? (
-          <View style={[betweenStyle, { right: 0 }]} />
-        ) : null}
+        {type === 'end' ? <View style={[betweenStyle, {left: -1}]} /> : null}
+        {type === 'start' ? <View style={[betweenStyle, {right: -1}]} /> : null}
         {date ? (
           <View style={markStyle}>
             <Text style={[{ fontSize: 15 }, dayStyle, style?.dayText]}>
