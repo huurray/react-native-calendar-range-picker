@@ -1,8 +1,6 @@
 
-# Visual Studio Code
 .vscode/
-
-dist
+dist/
 
 # node.js
 node_modules/

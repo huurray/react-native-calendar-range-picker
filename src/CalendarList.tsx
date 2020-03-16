@@ -95,7 +95,6 @@ const CalendarList = ({
         initialScrollIndex={getInitialIndex()}
         initialNumToRender={initialNumToRender}
         windowSize={61}
-        showsVerticalScrollIndicator={false}
       />
     </View>
   );

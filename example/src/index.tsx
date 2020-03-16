@@ -100,7 +100,7 @@ export default class Index extends React.Component<Props, State> {
 
   render() {
     const {
-      pastYearRange = 0,
+      pastYearRange = 1,
       futureYearRange = 2,
       initialNumToRender = 7,
       locale = LOCALE,
