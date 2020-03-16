@@ -1,16 +1,10 @@
 import * as React from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  Dimensions,
-  TouchableOpacity
-} from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import * as moment from "moment";
 // components
-import Day from "./Day";
+import Week from "./Week";
 // types
-import { getDays, Day_Type, Month_Type } from "./utils/data";
+import { getWeeks, Month_Type, Week_Type } from "./utils/data";
 import { LOCALE_TYPE } from "./utils/locale";
 import { Style } from "./index";
 
@@ -24,7 +18,6 @@ interface Props {
 }
 
 const PADDING_HORIZONTAL = 10;
-const { width: SCREEN_WIDTH } = Dimensions.get("window");
 export default class Month extends React.Component<Props> {
   constructor(props: Props) {
     super(props);
@@ -109,47 +102,26 @@ export default class Month extends React.Component<Props> {
     return result;
   }
 
-  renderDays() {
+  renderWeeks() {
     const result = [];
-    const days: Day_Type[] = getDays(
+    const weeks: Week_Type[] = getWeeks(
       this.props.item.id,
       this.props.startDate,
       this.props.endDate
     );
-    const is6Weeks = days.length > 7 * 5;
+    const is6Weeks = weeks.length > 5;
 
-    for (let i = 0; i < days.length; i++) {
-      const day = days[i];
-      let dayComponent = (
-        <View
-          style={{
-            width: (SCREEN_WIDTH - PADDING_HORIZONTAL * 2) / 7,
-            height: is6Weeks ? 45 : 50
-          }}
+    for (let i = 0; i < weeks.length; i++) {
+      result.push(
+        <Week
           key={i}
+          week={weeks[i]}
+          locale={this.props.locale}
+          onPress={this.props.onPress}
+          is6Weeks={is6Weeks}
+          style={this.props.style}
         />
       );
-      if (day.date) {
-        dayComponent = (
-          <TouchableOpacity
-            style={{
-              width: (SCREEN_WIDTH - PADDING_HORIZONTAL * 2) / 7,
-              height: is6Weeks ? 45 : 50,
-              alignItems: "center"
-            }}
-            onPress={() => this.props.onPress(day.date || "")}
-            activeOpacity={1}
-            key={day.date || i}
-          >
-            <Day
-              day={day}
-              locale={this.props.locale}
-              style={this.props.style}
-            />
-          </TouchableOpacity>
-        );
-      }
-      result.push(dayComponent);
     }
     return result;
   }
@@ -175,7 +147,7 @@ export default class Month extends React.Component<Props> {
           </Text>
         </View>
         <View style={styles.dayNamesContainer}>{this.renderDayNames()}</View>
-        <View style={styles.dayContainer}>{this.renderDays()}</View>
+        {this.renderWeeks()}
       </View>
     );
   }

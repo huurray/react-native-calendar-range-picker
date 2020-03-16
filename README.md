@@ -91,6 +91,7 @@ const CUSTOM_LOCALE = {
   style={{
     container: {},
     monthContainer: {},
+    weekContainer:{},
     monthNameText: {},
     dayNameText: {},
     dayText: {},

@@ -8,6 +8,7 @@ import {LOCALE, LOCALE_TYPE} from './utils/locale';
 export interface Style {
   container?: {};
   monthContainer?: {};
+  weekContainer?: {};
   monthNameText?: {};
   dayNameText?: {};
   dayText?: {};
