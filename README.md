@@ -52,7 +52,7 @@ Common props you may want to specify include:
 | `endDate`            | `string(YYYY-MM-DD)` | Initially visible end date.                                                                             |
 | `singleSelectMode`   | `boolean`            | Only select single date. (default = false)                                                              |
 | `initialNumToRender` | `number`             | FlatList initialNumToRender prop.(to protect slow initial render)(default = 7)                          |
-| `flatListProps`      | `FlatList Props`     | React native FlatList props.                                                                            |
+| `flatListProps`      | `FlatList Props`     | FlatList all props.                                                                            |
 | `style`              | `object`             | Customize style.                                                                                        |
 
 ### Locale
