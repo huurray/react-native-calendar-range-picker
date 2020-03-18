@@ -1,4 +1,8 @@
-# react-native-calendar-range-picker
+# :point_up_2: react-native-calendar-range-picker
+
+![platforms](https://img.shields.io/badge/platforms-Android%20|%20iOS-brightgreen.svg)
+[![npm](https://img.shields.io/npm/v/react-native-calendar-range-picker.svg)](https://www.npmjs.com/package/react-native-calendar-range-picker)
+[![npm](https://img.shields.io/npm/dm/react-native-calendar-range-picker.svg)](https://www.npmjs.com/package/react-native-calendar-range-picker)
 
 A Simple react native calendar picker implemented with FlatList using Hooks.
 
@@ -58,7 +62,7 @@ Common props you may want to specify include:
 | `endDate`            | `string(YYYY-MM-DD)` | Initially visible end date.                                                                             |
 | `singleSelectMode`   | `boolean`            | Only select single date. (default = false)                                                              |
 | `initialNumToRender` | `number`             | FlatList initialNumToRender prop.(to protect slow initial render)(default = 7)                          |
-| `flatListProps`      | `FlatList Props`     | React native FlatList props.                                                                            |
+| `flatListProps`      | `FlatList Props`     | FlatList all props.                                                                            |
 | `style`              | `object`             | Customize style.                                                                                        |
 
 ### Locale
