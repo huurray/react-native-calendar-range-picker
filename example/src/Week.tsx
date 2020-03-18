@@ -10,59 +10,50 @@ import {Style} from './index';
 interface Props {
   week: Week_Type;
   locale: LOCALE_TYPE;
-  onPress: (date: string) => void;
+  handlePress: (date: string) => void;
   is6Weeks: boolean;
   style?: Style;
 }
 
-export default class Week extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
-
-  shouldComponentUpdate(nextProps: Props) {
-    if (JSON.stringify(nextProps.week) === JSON.stringify(this.props.week))
-      return false;
-
-    return true;
-  }
-
-  renderDayNames() {
+function Week({week, locale, handlePress, is6Weeks, style}: Props) {
+  const renderDayNames = () => {
     const result = [];
-
     for (let i = 0; i < 7; i++) {
-      const day = this.props.week[i];
+      const day = week[i];
       const DayComponent = day.date ? (
         <TouchableOpacity
           style={{
             flex: 1,
-            height: this.props.is6Weeks ? 45 : 50,
+            height: is6Weeks ? 45 : 50,
             alignItems: 'center',
           }}
-          onPress={() => this.props.onPress(day.date || '')}
+          onPress={() => handlePress(day.date || '')}
           activeOpacity={1}
           key={day.date || i}>
-          <Day day={day} locale={this.props.locale} style={this.props.style} />
+          <Day day={day} locale={locale} style={style} />
         </TouchableOpacity>
       ) : (
-        <View
-          style={{flex: 1, height: this.props.is6Weeks ? 45 : 50}}
-          key={i}
-        />
+        <View style={{flex: 1, height: is6Weeks ? 45 : 50}} key={i} />
       );
       result.push(DayComponent);
     }
     return result;
-  }
+  };
 
-  render() {
-    return (
-      <View style={[styles.weekContainer, this.props.style?.weekContainer]}>
-        {this.renderDayNames()}
-      </View>
-    );
-  }
+  return (
+    <View style={[styles.weekContainer, style?.weekContainer]}>
+      {renderDayNames()}
+    </View>
+  );
 }
+
+function areEqual(prevProps: Props, nextProps: Props) {
+  if (JSON.stringify(prevProps.week) === JSON.stringify(nextProps.week))
+    return true;
+  return false;
+}
+
+export default React.memo(Week, areEqual);
 
 const styles = StyleSheet.create({
   weekContainer: {

@@ -11,104 +11,42 @@ import { Style } from "./index";
 interface Props {
   item: Month_Type;
   locale: LOCALE_TYPE;
-  onPress: (date: string) => void;
+  handlePress: (date: string) => void;
   startDate: string | null;
   endDate: string | null;
   style?: Style;
 }
 
 const PADDING_HORIZONTAL = 10;
-export default class Month extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
+function Month({
+  item,
+  locale,
+  handlePress,
+  startDate,
+  endDate,
+  style
+}: Props) {
+  const { year, month } = item;
 
-  shouldComponentUpdate(nextProps: Props) {
-    const newId = nextProps.item.id;
-    if (
-      nextProps.startDate &&
-      moment(nextProps.startDate).format("YYYY-MM") === newId
-    ) {
-      return true;
-    }
-
-    if (
-      nextProps.endDate &&
-      moment(nextProps.endDate).format("YYYY-MM") === newId
-    ) {
-      return true;
-    }
-
-    if (
-      this.props.startDate &&
-      moment(this.props.startDate).format("YYYY-MM") === newId
-    ) {
-      return true;
-    }
-
-    if (
-      this.props.endDate &&
-      moment(this.props.endDate).format("YYYY-MM") === newId
-    ) {
-      return true;
-    }
-
-    if (
-      nextProps.startDate &&
-      nextProps.endDate &&
-      moment(nextProps.startDate).format("YYYYMM") <
-        moment(newId).format("YYYYMM") &&
-      moment(nextProps.endDate).format("YYYYMM") >
-        moment(newId).format("YYYYMM")
-    ) {
-      return true;
-    }
-
-    if (
-      this.props.endDate &&
-      this.props.startDate &&
-      moment(this.props.startDate).format("YYYYMM") <
-        moment(newId).format("YYYYMM") &&
-      moment(this.props.endDate).format("YYYYMM") >
-        moment(newId).format("YYYYMM")
-    ) {
-      return true;
-    }
-
-    if (
-      this.props.locale &&
-      nextProps.locale &&
-      this.props.locale.today !== nextProps.locale.today
-    ) {
-      return true;
-    }
-
-    return false;
-  }
-
-  renderDayNames() {
+  const renderDayNames = () => {
     const result = [];
-    const dayNames = this.props.locale.dayNames;
+    const dayNames = locale.dayNames;
 
     for (let i = 0; i < dayNames.length; i++) {
       result.push(
         <View key={i} style={styles.dayNameContainer}>
-          <Text style={[styles.dayName, this.props.style?.dayNameText]}>
+          <Text style={[styles.dayName, style?.dayNameText]}>
             {dayNames[i]}
           </Text>
         </View>
       );
     }
     return result;
-  }
+  };
 
-  renderWeeks() {
+  const renderWeeks = () => {
     const result = [];
-    const weeks: Week_Type[] = getWeeks(
-      this.props.item.id,
-      this.props.startDate,
-      this.props.endDate
-    );
+    const weeks: Week_Type[] = getWeeks(item.id, startDate, endDate);
     const is6Weeks = weeks.length > 5;
 
     for (let i = 0; i < weeks.length; i++) {
@@ -116,42 +54,97 @@ export default class Month extends React.Component<Props> {
         <Week
           key={i}
           week={weeks[i]}
-          locale={this.props.locale}
-          onPress={this.props.onPress}
+          locale={locale}
+          handlePress={handlePress}
           is6Weeks={is6Weeks}
-          style={this.props.style}
+          style={style}
         />
       );
     }
     return result;
-  }
+  };
 
-  render() {
-    const {
-      item: { year, month },
-      locale,
-      style
-    } = this.props;
-
-    return (
-      <View style={[styles.monthContainer, style?.monthContainer]}>
-        <View style={styles.monthNameContainer}>
-          <Text style={[styles.monthName, style?.monthNameText]}>
-            {year}
-            {locale.year}
-          </Text>
-          <Text
-            style={[styles.monthName, { marginLeft: 5 }, style?.monthNameText]}
-          >
-            {locale.monthNames[month - 1]}
-          </Text>
-        </View>
-        <View style={styles.dayNamesContainer}>{this.renderDayNames()}</View>
-        {this.renderWeeks()}
+  return (
+    <View style={[styles.monthContainer, style?.monthContainer]}>
+      <View style={styles.monthNameContainer}>
+        <Text style={[styles.monthName, style?.monthNameText]}>
+          {year}
+          {locale.year}
+        </Text>
+        <Text
+          style={[styles.monthName, { marginLeft: 5 }, style?.monthNameText]}
+        >
+          {locale.monthNames[month - 1]}
+        </Text>
       </View>
-    );
-  }
+      <View style={styles.dayNamesContainer}>{renderDayNames()}</View>
+      {renderWeeks()}
+    </View>
+  );
 }
+
+function areEqual(prevProps: Props, nextProps: Props) {
+  const newId = nextProps.item.id;
+  if (
+    nextProps.startDate &&
+    moment(nextProps.startDate).format("YYYY-MM") === newId
+  ) {
+    return false;
+  }
+
+  if (
+    nextProps.endDate &&
+    moment(nextProps.endDate).format("YYYY-MM") === newId
+  ) {
+    return false;
+  }
+
+  if (
+    prevProps.startDate &&
+    moment(prevProps.startDate).format("YYYY-MM") === newId
+  ) {
+    return false;
+  }
+
+  if (
+    prevProps.endDate &&
+    moment(prevProps.endDate).format("YYYY-MM") === newId
+  ) {
+    return false;
+  }
+
+  if (
+    nextProps.startDate &&
+    nextProps.endDate &&
+    moment(nextProps.startDate).format("YYYYMM") <
+      moment(newId).format("YYYYMM") &&
+    moment(nextProps.endDate).format("YYYYMM") > moment(newId).format("YYYYMM")
+  ) {
+    return false;
+  }
+
+  if (
+    prevProps.endDate &&
+    prevProps.startDate &&
+    moment(prevProps.startDate).format("YYYYMM") <
+      moment(newId).format("YYYYMM") &&
+    moment(prevProps.endDate).format("YYYYMM") > moment(newId).format("YYYYMM")
+  ) {
+    return false;
+  }
+
+  if (
+    prevProps.locale &&
+    nextProps.locale &&
+    prevProps.locale.today !== nextProps.locale.today
+  ) {
+    return false;
+  }
+
+  return true;
+}
+
+export default React.memo(Month, areEqual);
 
 const styles = StyleSheet.create({
   monthContainer: {

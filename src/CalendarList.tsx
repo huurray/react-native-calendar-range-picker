@@ -15,7 +15,7 @@ interface Props {
   futureYearRange: number;
   initialNumToRender: number;
   locale: LOCALE_TYPE;
-  onPress: (date: string) => void;
+  handlePress: (date: string) => void;
   startDate: string | null;
   endDate: string | null;
   style?: Style;
@@ -28,7 +28,7 @@ const CalendarList = ({
   futureYearRange,
   initialNumToRender,
   locale,
-  onPress,
+  handlePress,
   startDate,
   endDate,
   flatListProps,
@@ -57,14 +57,14 @@ const CalendarList = ({
         <Month
           item={item}
           locale={locale}
-          onPress={onPress}
+          handlePress={handlePress}
           startDate={startDate}
           endDate={endDate}
           style={style}
         />
       </View>
     ),
-    [locale.today, onPress, startDate, endDate]
+    [locale.today, startDate, endDate]
   );
 
   return (

@@ -24,10 +24,7 @@ interface onChangeParams {
   startDate: string | null;
   endDate: string | null;
 }
-interface State {
-  startDate: string | null;
-  endDate: string | null;
-}
+
 interface Props {
   pastYearRange?: number;
   futureYearRange?: number;
@@ -41,87 +38,81 @@ interface Props {
   flatListProps?: any;
 }
 
-export default class Index extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      startDate: this.props.startDate ? this.props.startDate : null,
-      endDate: this.props.endDate ? this.props.endDate : null
-    };
+export default function Index({
+  pastYearRange = 1,
+  futureYearRange = 2,
+  initialNumToRender = 7,
+  locale = LOCALE,
+  startDate: prevStartDate,
+  endDate: prevEndDate,
+  onChange,
+  style,
+  singleSelectMode,
+  flatListProps
+}: Props) {
+  const [startDate, setStartDate] = React.useState(
+    prevStartDate ? prevStartDate : null
+  );
+  const [endDate, setEndDate] = React.useState(
+    prevEndDate ? prevEndDate : null
+  );
+  const startDateRef: any = React.useRef(null);
+  const endDateRef: any = React.useRef(null);
 
-    this.setStartDate = this.setStartDate.bind(this);
-    this.setEndDate = this.setEndDate.bind(this);
-    this.onPress = this.onPress.bind(this);
-  }
-
-  setStartDate(startDate: string) {
-    const { onChange, singleSelectMode } = this.props;
-    this.setState({ startDate, endDate: null });
-
+  const handleSetStartDate = (startDate: string) => {
+    setStartDate(startDate);
+    setEndDate(null);
+    startDateRef.current = startDate;
+    endDateRef.current = null;
     if (singleSelectMode) {
       onChange(startDate);
     } else {
       onChange({ startDate, endDate: null });
     }
-  }
+  };
 
-  setEndDate(startDate: string, endDate: string) {
-    const { onChange } = this.props;
-    this.setState({ endDate });
+  const handleSetEndDate = (startDate: string, endDate: string) => {
+    setEndDate(endDate);
+    endDateRef.current = endDate;
     onChange({ startDate, endDate });
-  }
+  };
 
-  onPress(date: string) {
-    const { startDate, endDate } = this.state;
-    const { singleSelectMode } = this.props;
-
+  const handlePress = (date: string) => {
     if (singleSelectMode) {
-      this.setState({ startDate: date });
+      handleSetStartDate(date);
       return;
     }
 
-    if (!startDate && !endDate) {
-      this.setStartDate(date);
+    if (!startDateRef.current && !endDateRef.current) {
+      handleSetStartDate(date);
       return;
     }
 
-    if (startDate && endDate) {
-      this.setStartDate(date);
+    if (startDateRef.current && endDateRef.current) {
+      handleSetStartDate(date);
       return;
     }
 
-    if (startDate) {
-      if (moment(date).isBefore(startDate)) {
-        this.setStartDate(date);
+    if (startDateRef.current) {
+      if (moment(date).isBefore(startDateRef.current)) {
+        handleSetStartDate(date);
       } else {
-        this.setEndDate(startDate, date);
+        handleSetEndDate(startDateRef.current, date);
       }
     }
-  }
+  };
 
-  render() {
-    const {
-      pastYearRange = 1,
-      futureYearRange = 2,
-      initialNumToRender = 7,
-      locale = LOCALE,
-      flatListProps,
-      style
-    } = this.props;
-    const { startDate, endDate } = this.state;
-
-    return (
-      <CalendarList
-        initialNumToRender={initialNumToRender}
-        pastYearRange={pastYearRange}
-        futureYearRange={futureYearRange}
-        locale={locale}
-        onPress={this.onPress}
-        startDate={startDate}
-        endDate={endDate}
-        style={style}
-        flatListProps={flatListProps}
-      />
-    );
-  }
+  return (
+    <CalendarList
+      initialNumToRender={initialNumToRender}
+      pastYearRange={pastYearRange}
+      futureYearRange={futureYearRange}
+      locale={locale}
+      handlePress={handlePress}
+      startDate={startDate}
+      endDate={endDate}
+      style={style}
+      flatListProps={flatListProps}
+    />
+  );
 }

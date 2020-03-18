@@ -1,13 +1,19 @@
 # react-native-calendar-range-picker
 
-A Simple react native calendar picker.
+A Simple react native calendar picker implemented with FlatList using Hooks.
 
 ![demo-play](https://user-images.githubusercontent.com/41982439/76744452-9da90f80-67b7-11ea-9aca-1590ebbf3d11.gif)
 
 ## Install
 
-```sh
-$ npm install react-native-calendar-range-picker
+```
+yarn add react-native-calendar-range-picker
+```
+
+or
+
+```
+npm install react-native-calendar-range-picker --save
 ```
 
 ## Usage
