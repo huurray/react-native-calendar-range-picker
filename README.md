@@ -1,4 +1,9 @@
-# react-native-calendar-range-picker
+# :point_up_2: react-native-calendar-range-picker
+
+![platforms](https://img.shields.io/badge/platforms-Android%20|%20iOS-brightgreen.svg)
+[![npm](https://img.shields.io/npm/v/react-native-calendar-range-picker.svg)](https://www.npmjs.com/package/react-native-calendar-range-picker)
+[![npm](https://img.shields.io/npm/dm/react-native-calendar-range-picker.svg)](https://www.npmjs.com/package/react-native-calendar-range-picker)
+[![travis](https://travis-ci.org/gusgard/react-native-calendar-range-picker.svg?branch=master)](https://travis-ci.org/gusgard/react-native-calendar-range-picker)
 
 A Simple react native calendar picker.
 
