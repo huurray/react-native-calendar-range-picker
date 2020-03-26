@@ -4,7 +4,7 @@
 [![npm](https://img.shields.io/npm/v/react-native-calendar-range-picker.svg)](https://www.npmjs.com/package/react-native-calendar-range-picker)
 [![npm](https://img.shields.io/npm/dm/react-native-calendar-range-picker.svg)](https://www.npmjs.com/package/react-native-calendar-range-picker)
 
-A Simple react native calendar picker implemented with FlatList using Hooks.
+A Simple react native calendar picker using Hooks.
 
 ![demo-play](https://user-images.githubusercontent.com/41982439/76744452-9da90f80-67b7-11ea-9aca-1590ebbf3d11.gif)
 
