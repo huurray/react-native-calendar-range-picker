@@ -17,7 +17,7 @@
     "url": "git+https://github.com/huurray/react-native-calendar-range-picker.git"
   },
   "author": "JunHyeok Heo <huurray@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/huurray/react-native-calendar-range-picker/issues"
   },
