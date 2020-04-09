@@ -32,7 +32,7 @@ const CalendarList = ({
   startDate,
   endDate,
   flatListProps,
-  style
+  style,
 }: Props) => {
   const months: Month_Type[] = React.useMemo(
     () => getMonths(pastYearRange, futureYearRange),
@@ -47,11 +47,11 @@ const CalendarList = ({
   }, []);
 
   const handleRenderItem = React.useCallback(
-    ({ _, item }) => (
+    ({ item }) => (
       <View
         style={{
           height: LAYOUT_HEIGHT,
-          backgroundColor: "#fff"
+          backgroundColor: "#fff",
         }}
       >
         <Month
@@ -77,7 +77,7 @@ const CalendarList = ({
           bottom: 0,
           position: "absolute",
           justifyContent: "center",
-          alignItems: "center"
+          alignItems: "center",
         }}
       >
         <ActivityIndicator />
@@ -89,12 +89,11 @@ const CalendarList = ({
         getItemLayout={(_, index) => ({
           length: LAYOUT_HEIGHT,
           offset: LAYOUT_HEIGHT * index,
-          index
+          index,
         })}
-        {...flatListProps}
         initialScrollIndex={getInitialIndex()}
         initialNumToRender={initialNumToRender}
-        windowSize={61}
+        {...flatListProps}
       />
     </View>
   );

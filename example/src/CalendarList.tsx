@@ -47,7 +47,7 @@ const CalendarList = ({
   }, []);
 
   const handleRenderItem = React.useCallback(
-    ({_, item}) => (
+    ({item}) => (
       <View
         style={{
           height: LAYOUT_HEIGHT,
@@ -89,10 +89,9 @@ const CalendarList = ({
           offset: LAYOUT_HEIGHT * index,
           index,
         })}
-        {...flatListProps}
         initialScrollIndex={getInitialIndex()}
         initialNumToRender={initialNumToRender}
-        windowSize={61}
+        {...flatListProps}
       />
     </View>
   );
