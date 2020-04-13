@@ -55,12 +55,12 @@ Common props you may want to specify include:
 | Properties           | PropType             | Description                                                                                             |
 | -------------------- | -------------------- | ------------------------------------------------------------------------------------------------------- |
 | `onChange`           | `func`               | (**Required**) Handler which gets executed on day press including date data.(start, end or single date) |
+| `singleSelectMode`   | `boolean`            | Only select single date. (default = false)                                                              |
 | `pastYearRange`      | `number`             | Amount of months allowed to scroll to the past. (default = 1)                                           |
 | `futureYearRange`    | `number`             | Amount of months allowed to scroll to the future. (default = 2)                                         |
 | `locale`             | `object`             | Can be localized by adding custom locales to locale object.                                             |
 | `startDate`          | `string(YYYY-MM-DD)` | Initially visible start date.                                                                           |
 | `endDate`            | `string(YYYY-MM-DD)` | Initially visible end date.                                                                             |
-| `singleSelectMode`   | `boolean`            | Only select single date. (default = false)                                                              |
 | `initialNumToRender` | `number`             | FlatList initialNumToRender prop.(to protect slow initial render)(default = 7)                          |
 | `flatListProps`      | `FlatList Props`     | FlatList all props.                                                                                     |
 | `style`              | `object`             | Customize style.                                                                                        |
