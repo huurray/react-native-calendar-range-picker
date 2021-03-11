@@ -1,6 +1,6 @@
-import * as React from "react";
+import React, { memo } from "react";
 import { StyleSheet, View, Text } from "react-native";
-import * as moment from "moment";
+import moment from "moment";
 // components
 import Week from "./Week";
 // types
@@ -24,7 +24,7 @@ function Month({
   handlePress,
   startDate,
   endDate,
-  style
+  style,
 }: Props) {
   const { year, month } = item;
 
@@ -144,39 +144,39 @@ function areEqual(prevProps: Props, nextProps: Props) {
   return true;
 }
 
-export default React.memo(Month, areEqual);
+export default memo(Month, areEqual);
 
 const styles = StyleSheet.create({
   monthContainer: {
     paddingTop: 20,
     paddingHorizontal: PADDING_HORIZONTAL,
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
   },
   monthNameContainer: {
     flexDirection: "row",
     alignItems: "center",
     height: 30,
-    paddingLeft: 20
+    paddingLeft: 20,
   },
   monthName: {
-    fontSize: 16
+    fontSize: 16,
   },
   dayNamesContainer: {
     height: 50,
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
   },
   dayNameContainer: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   dayName: {
     fontSize: 15,
-    color: "#bababe"
+    color: "#bababe",
   },
   dayContainer: {
     flexDirection: "row",
-    flexWrap: "wrap"
-  }
+    flexWrap: "wrap",
+  },
 });

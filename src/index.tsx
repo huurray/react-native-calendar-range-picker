@@ -1,5 +1,5 @@
-import * as React from "react";
-import * as moment from "moment";
+import React, { useState, useRef } from "react";
+import moment from "moment";
 // components
 import CalendarList from "./CalendarList";
 // data
@@ -48,16 +48,14 @@ export default function Index({
   onChange,
   style,
   singleSelectMode,
-  flatListProps
+  flatListProps,
 }: Props) {
-  const [startDate, setStartDate] = React.useState(
+  const [startDate, setStartDate] = useState(
     prevStartDate ? prevStartDate : null
   );
-  const [endDate, setEndDate] = React.useState(
-    prevEndDate ? prevEndDate : null
-  );
-  const startDateRef: any = React.useRef(null);
-  const endDateRef: any = React.useRef(null);
+  const [endDate, setEndDate] = useState(prevEndDate ? prevEndDate : null);
+  const startDateRef: any = useRef(null);
+  const endDateRef: any = useRef(null);
 
   const handleSetStartDate = (startDate: string) => {
     setStartDate(startDate);

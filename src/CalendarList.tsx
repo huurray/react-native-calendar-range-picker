@@ -1,5 +1,5 @@
-import * as React from "react";
-import * as moment from "moment";
+import React, { useMemo, useCallback } from "react";
+import moment from "moment";
 import { FlatList, View, ActivityIndicator } from "react-native";
 // components
 import Month from "./Month";
@@ -34,19 +34,19 @@ const CalendarList = ({
   flatListProps,
   style,
 }: Props) => {
-  const months: Month_Type[] = React.useMemo(
+  const months: Month_Type[] = useMemo(
     () => getMonths(pastYearRange, futureYearRange),
     [pastYearRange, futureYearRange]
   );
 
-  const getInitialIndex = React.useCallback(() => {
+  const getInitialIndex = useCallback(() => {
     return months.findIndex((month: Month_Type) => {
       const targetDate = startDate ? moment(startDate) : moment();
       return month.id === targetDate.format("YYYY-MM");
     });
   }, []);
 
-  const handleRenderItem = React.useCallback(
+  const handleRenderItem = useCallback(
     ({ item }) => (
       <View
         style={{

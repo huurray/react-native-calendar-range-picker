@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import moment from 'moment';
 // components
@@ -135,7 +135,7 @@ function areEqual(prevProps: Props, nextProps: Props) {
   return true;
 }
 
-export default React.memo(Month, areEqual);
+export default memo(Month, areEqual);
 
 const styles = StyleSheet.create({
   monthContainer: {

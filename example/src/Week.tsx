@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
 // components
 import Day from './Day';
@@ -53,7 +53,7 @@ function areEqual(prevProps: Props, nextProps: Props) {
   return false;
 }
 
-export default React.memo(Week, areEqual);
+export default memo(Week, areEqual);
 
 const styles = StyleSheet.create({
   weekContainer: {

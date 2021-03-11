@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {View, Text} from 'react-native';
 import moment from 'moment';
 // types
@@ -112,4 +112,4 @@ function areEqual(prevProps: Props, nextProps: Props) {
   return false;
 }
 
-export default React.memo(Day, areEqual);
+export default memo(Day, areEqual);

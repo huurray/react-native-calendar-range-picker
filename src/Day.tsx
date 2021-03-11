@@ -1,6 +1,6 @@
-import * as React from "react";
+import React, { memo } from "react";
 import { View, Text } from "react-native";
-import * as moment from "moment";
+import moment from "moment";
 // types
 import { LOCALE_TYPE } from "./utils/locale";
 import { Day_Type } from "./utils/data";
@@ -30,16 +30,16 @@ function Day({ day, locale, style }: Props) {
     width: 30,
     height: 30,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   };
   let betweenStyle: any = {
     width: "50%",
     height: 30,
     position: "absolute",
-    backgroundColor: selectedBetweenDayBackgroundTextColor
+    backgroundColor: selectedBetweenDayBackgroundTextColor,
   };
   let dayStyle: any = {
-    color: isToday ? todayColor : isHoliday ? holidayColor : dayTextColor
+    color: isToday ? todayColor : isHoliday ? holidayColor : dayTextColor,
   };
 
   switch (type) {
@@ -47,7 +47,7 @@ function Day({ day, locale, style }: Props) {
       markStyle = {
         ...markStyle,
         backgroundColor: selectedDayBackgroundColor,
-        borderRadius: 15
+        borderRadius: 15,
       };
       dayStyle = { color: selectedDayTextColor };
       break;
@@ -55,7 +55,7 @@ function Day({ day, locale, style }: Props) {
       markStyle = {
         ...markStyle,
         backgroundColor: selectedDayBackgroundColor,
-        borderRadius: 15
+        borderRadius: 15,
       };
       dayStyle = { color: selectedDayTextColor };
       break;
@@ -63,7 +63,7 @@ function Day({ day, locale, style }: Props) {
       markStyle = {
         ...markStyle,
         backgroundColor: selectedDayBackgroundColor,
-        borderRadius: 15
+        borderRadius: 15,
       };
       dayStyle = { color: selectedDayTextColor };
       break;
@@ -71,14 +71,14 @@ function Day({ day, locale, style }: Props) {
       markStyle = {
         ...markStyle,
         backgroundColor: selectedBetweenDayBackgroundTextColor,
-        width: "101%"
+        width: "101%",
       };
       dayStyle = {
         color: isToday
           ? todayColor
           : isHoliday
           ? holidayColor
-          : selectedBetweenDayTextColor
+          : selectedBetweenDayTextColor,
       };
 
       break;
@@ -112,4 +112,4 @@ function areEqual(prevProps: Props, nextProps: Props) {
   return false;
 }
 
-export default React.memo(Day, areEqual);
+export default memo(Day, areEqual);

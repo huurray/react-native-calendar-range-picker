@@ -1,4 +1,4 @@
-import * as moment from "moment";
+import moment from "moment";
 export interface Day_Type {
   date: string | null;
   type: string | null;
@@ -31,7 +31,7 @@ export function getMonths(pastYearRange: number, futureYearRange: number) {
       months.push({
         id,
         year,
-        month: i + 1
+        month: i + 1,
       });
     }
   }
@@ -57,7 +57,7 @@ export function getWeeks(
         type: null,
         date: null,
         isToday: false,
-        isHoliday: false
+        isHoliday: false,
       };
       const currentDateString = currentDate.format("YYYY-MM-DD");
       if (i == currentDate.days() && currentDate.month() == currentMonth) {
