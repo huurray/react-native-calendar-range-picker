@@ -9,16 +9,18 @@ import { Style } from "./index";
 interface Props {
   day: Day_Type;
   locale: LOCALE_TYPE;
+  disabledBeforeToday?: boolean;
   style?: Style;
 }
 
-function Day({ day, locale, style }: Props) {
-  const { date, type, isHoliday, isToday } = day;
+function Day({ day, locale, disabledBeforeToday, style }: Props) {
+  const { date, type, isHoliday, isToday, isBeforeToday } = day;
 
   const dayTextColor = style?.dayTextColor || "#1d1c1d";
   const holidayColor = style?.holidayColor || "#f26522";
   const todayColor = style?.todayColor || "#1692e4";
   const selectedDayTextColor = style?.selectedDayTextColor || "#fff";
+  const disabledTextColor = style?.disabledTextColor || "#ccc";
   const selectedDayBackgroundColor =
     style?.selectedDayBackgroundColor || "#83bc44";
   const selectedBetweenDayTextColor =
@@ -39,7 +41,14 @@ function Day({ day, locale, style }: Props) {
     backgroundColor: selectedBetweenDayBackgroundTextColor,
   };
   let dayStyle: any = {
-    color: isToday ? todayColor : isHoliday ? holidayColor : dayTextColor,
+    color:
+      disabledBeforeToday && isBeforeToday
+        ? disabledTextColor
+        : isToday
+        ? todayColor
+        : isHoliday
+        ? holidayColor
+        : dayTextColor,
   };
 
   switch (type) {

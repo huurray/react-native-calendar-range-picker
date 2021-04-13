@@ -1,8 +1,9 @@
-import moment from 'moment';
+import moment from "moment";
 export interface Day_Type {
   date: string | null;
   type: string | null;
   isToday: boolean;
+  isBeforeToday: boolean;
   isHoliday: boolean;
 }
 
@@ -22,7 +23,7 @@ export function getMonths(pastYearRange: number, futureYearRange: number) {
   for (let i = 0; i < endYear - startYear; i++) {
     const year = startYear + i;
     for (let i = 0; i < 12; i++) {
-      let id = '';
+      let id = "";
       if (i < 9) {
         id = `${year}-0${i + 1}`;
       } else {
@@ -41,11 +42,11 @@ export function getMonths(pastYearRange: number, futureYearRange: number) {
 export function getWeeks(
   month: string,
   startDate: string | null,
-  endDate: string | null,
+  endDate: string | null
 ) {
-  const today = moment().format('YYYY-MM-DD');
+  const today = moment().format("YYYY-MM-DD");
   const currentMonth = moment(month).month();
-  const currentDate = moment(month).startOf('month');
+  const currentDate = moment(month).startOf("month");
   let week: any = [];
   let weeks: any = [];
   let dayObj: any = {};
@@ -57,23 +58,24 @@ export function getWeeks(
         type: null,
         date: null,
         isToday: false,
+        isBeforeToday: false,
         isHoliday: false,
       };
-      const currentDateString = currentDate.format('YYYY-MM-DD');
+      const currentDateString = currentDate.format("YYYY-MM-DD");
       if (i == currentDate.days() && currentDate.month() == currentMonth) {
         if (startDate && startDate === currentDateString) {
           if (!endDate) {
-            dayObj.type = 'single';
+            dayObj.type = "single";
           } else {
-            dayObj.type = 'start';
+            dayObj.type = "start";
           }
         }
 
         if (endDate && endDate == currentDateString) {
           if (startDate === endDate) {
-            dayObj.type = 'single';
+            dayObj.type = "single";
           } else {
-            dayObj.type = 'end';
+            dayObj.type = "end";
           }
         }
         if (
@@ -82,19 +84,23 @@ export function getWeeks(
           endDate &&
           endDate > currentDateString
         ) {
-          dayObj.type = 'between';
+          dayObj.type = "between";
         }
 
-        const date = currentDate.clone().format('YYYY-MM-DD');
+        const date = currentDate.clone().format("YYYY-MM-DD");
+        const passedDayFromToday = currentDate.diff(moment(), "day") < 0;
         dayObj.date = date;
         if (date === today) {
           dayObj.isToday = true;
+        }
+        if (passedDayFromToday) {
+          dayObj.isBeforeToday = true;
         }
         if (i === 0 || i === 6) {
           dayObj.isHoliday = true;
         }
         week.push(dayObj);
-        currentDate.add(1, 'day');
+        currentDate.add(1, "day");
       } else {
         if (
           startDate &&
@@ -102,7 +108,7 @@ export function getWeeks(
           startDate < startDate &&
           endDate >= startDate
         ) {
-          dayObj.type = 'between';
+          dayObj.type = "between";
         }
 
         week.push(dayObj);

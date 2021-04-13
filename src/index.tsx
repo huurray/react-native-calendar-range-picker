@@ -15,6 +15,7 @@ export interface Style {
   dayTextColor?: string;
   holidayColor?: string;
   todayColor?: string;
+  disabledTextColor?: string;
   selectedDayTextColor?: string;
   selectedDayBackgroundColor?: string;
   selectedBetweenDayTextColor?: string;
@@ -37,6 +38,7 @@ interface Props {
   initialNumToRender?: number;
   flatListProps?: any;
   isMonthFirst?: boolean;
+  disabledBeforeToday?: boolean;
 }
 
 export default function Index({
@@ -51,6 +53,7 @@ export default function Index({
   singleSelectMode,
   flatListProps,
   isMonthFirst,
+  disabledBeforeToday,
 }: Props) {
   const [startDate, setStartDate] = useState(
     prevStartDate ? prevStartDate : null
@@ -114,6 +117,7 @@ export default function Index({
       style={style}
       flatListProps={flatListProps}
       isMonthFirst={isMonthFirst}
+      disabledBeforeToday={disabledBeforeToday}
     />
   );
 }

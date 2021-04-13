@@ -15,6 +15,7 @@ interface Props {
   startDate: string | null;
   endDate: string | null;
   isMonthFirst?: boolean;
+  disabledBeforeToday?: boolean;
   style?: Style;
 }
 
@@ -26,6 +27,7 @@ function Month({
   startDate,
   endDate,
   isMonthFirst,
+  disabledBeforeToday,
   style,
 }: Props) {
   const { year, month } = item;
@@ -59,6 +61,7 @@ function Month({
           locale={locale}
           handlePress={handlePress}
           is6Weeks={is6Weeks}
+          disabledBeforeToday={disabledBeforeToday}
           style={style}
         />
       );

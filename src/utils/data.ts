@@ -3,6 +3,7 @@ export interface Day_Type {
   date: string | null;
   type: string | null;
   isToday: boolean;
+  isBeforeToday: boolean;
   isHoliday: boolean;
 }
 
@@ -57,6 +58,7 @@ export function getWeeks(
         type: null,
         date: null,
         isToday: false,
+        isBeforeToday: false,
         isHoliday: false,
       };
       const currentDateString = currentDate.format("YYYY-MM-DD");
@@ -86,9 +88,13 @@ export function getWeeks(
         }
 
         const date = currentDate.clone().format("YYYY-MM-DD");
+        const passedDayFromToday = currentDate.diff(moment(), "day") < 0;
         dayObj.date = date;
         if (date === today) {
           dayObj.isToday = true;
+        }
+        if (passedDayFromToday) {
+          dayObj.isBeforeToday = true;
         }
         if (i === 0 || i === 6) {
           dayObj.isHoliday = true;

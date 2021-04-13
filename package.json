@@ -1,6 +1,6 @@
 {
   "name": "react-native-calendar-range-picker",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "A Simple React Native calendar picker.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
