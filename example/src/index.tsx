@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useRef} from 'react';
 import moment from 'moment';
 // components
 import CalendarList from './CalendarList';
@@ -36,6 +36,7 @@ interface Props {
   singleSelectMode?: boolean;
   initialNumToRender?: number;
   flatListProps?: any;
+  customMonthName?: any;
 }
 
 export default function Index({
@@ -49,15 +50,14 @@ export default function Index({
   style,
   singleSelectMode,
   flatListProps,
+  customMonthName,
 }: Props) {
-  const [startDate, setStartDate] = React.useState(
+  const [startDate, setStartDate] = useState(
     prevStartDate ? prevStartDate : null,
   );
-  const [endDate, setEndDate] = React.useState(
-    prevEndDate ? prevEndDate : null,
-  );
-  const startDateRef: any = React.useRef(null);
-  const endDateRef: any = React.useRef(null);
+  const [endDate, setEndDate] = useState(prevEndDate ? prevEndDate : null);
+  const startDateRef: any = useRef(null);
+  const endDateRef: any = useRef(null);
 
   const handleSetStartDate = (startDate: string) => {
     setStartDate(startDate);
@@ -113,6 +113,7 @@ export default function Index({
       endDate={endDate}
       style={style}
       flatListProps={flatListProps}
+      customMonthName={customMonthName}
     />
   );
 }

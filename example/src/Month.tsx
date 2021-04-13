@@ -1,12 +1,12 @@
-import React, {memo} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
-import moment from 'moment';
+import React, { memo } from "react";
+import { StyleSheet, View, Text } from "react-native";
+import moment from "moment";
 // components
-import Week from './Week';
+import Week from "./Week";
 // types
-import {getWeeks, Month_Type, Week_Type} from './utils/data';
-import {LOCALE_TYPE} from './utils/locale';
-import {Style} from './index';
+import { getWeeks, Month_Type, Week_Type } from "./utils/data";
+import { LOCALE_TYPE } from "./utils/locale";
+import { Style } from "./index";
 
 interface Props {
   item: Month_Type;
@@ -14,12 +14,21 @@ interface Props {
   handlePress: (date: string) => void;
   startDate: string | null;
   endDate: string | null;
+  customMonthName?: any;
   style?: Style;
 }
 
 const PADDING_HORIZONTAL = 10;
-function Month({item, locale, handlePress, startDate, endDate, style}: Props) {
-  const {year, month} = item;
+function Month({
+  item,
+  locale,
+  handlePress,
+  startDate,
+  endDate,
+  customMonthName,
+  style,
+}: Props) {
+  const { year, month } = item;
 
   const renderDayNames = () => {
     const result = [];
@@ -31,7 +40,7 @@ function Month({item, locale, handlePress, startDate, endDate, style}: Props) {
           <Text style={[styles.dayName, style?.dayNameText]}>
             {dayNames[i]}
           </Text>
-        </View>,
+        </View>
       );
     }
     return result;
@@ -51,7 +60,7 @@ function Month({item, locale, handlePress, startDate, endDate, style}: Props) {
           handlePress={handlePress}
           is6Weeks={is6Weeks}
           style={style}
-        />,
+        />
       );
     }
     return result;
@@ -60,13 +69,25 @@ function Month({item, locale, handlePress, startDate, endDate, style}: Props) {
   return (
     <View style={[styles.monthContainer, style?.monthContainer]}>
       <View style={styles.monthNameContainer}>
-        <Text style={[styles.monthName, style?.monthNameText]}>
-          {year}
-          {locale.year}
-        </Text>
-        <Text style={[styles.monthName, {marginLeft: 5}, style?.monthNameText]}>
-          {locale.monthNames[month - 1]}
-        </Text>
+        {customMonthName ? (
+          customMonthName
+        ) : (
+          <>
+            <Text style={[styles.monthName, style?.monthNameText]}>
+              {year}
+              {locale.year}
+            </Text>
+            <Text
+              style={[
+                styles.monthName,
+                { marginLeft: 5 },
+                style?.monthNameText,
+              ]}
+            >
+              {locale.monthNames[month - 1]}
+            </Text>
+          </>
+        )}
       </View>
       <View style={styles.dayNamesContainer}>{renderDayNames()}</View>
       {renderWeeks()}
@@ -78,28 +99,28 @@ function areEqual(prevProps: Props, nextProps: Props) {
   const newId = nextProps.item.id;
   if (
     nextProps.startDate &&
-    moment(nextProps.startDate).format('YYYY-MM') === newId
+    moment(nextProps.startDate).format("YYYY-MM") === newId
   ) {
     return false;
   }
 
   if (
     nextProps.endDate &&
-    moment(nextProps.endDate).format('YYYY-MM') === newId
+    moment(nextProps.endDate).format("YYYY-MM") === newId
   ) {
     return false;
   }
 
   if (
     prevProps.startDate &&
-    moment(prevProps.startDate).format('YYYY-MM') === newId
+    moment(prevProps.startDate).format("YYYY-MM") === newId
   ) {
     return false;
   }
 
   if (
     prevProps.endDate &&
-    moment(prevProps.endDate).format('YYYY-MM') === newId
+    moment(prevProps.endDate).format("YYYY-MM") === newId
   ) {
     return false;
   }
@@ -107,9 +128,9 @@ function areEqual(prevProps: Props, nextProps: Props) {
   if (
     nextProps.startDate &&
     nextProps.endDate &&
-    moment(nextProps.startDate).format('YYYYMM') <
-      moment(newId).format('YYYYMM') &&
-    moment(nextProps.endDate).format('YYYYMM') > moment(newId).format('YYYYMM')
+    moment(nextProps.startDate).format("YYYYMM") <
+      moment(newId).format("YYYYMM") &&
+    moment(nextProps.endDate).format("YYYYMM") > moment(newId).format("YYYYMM")
   ) {
     return false;
   }
@@ -117,9 +138,9 @@ function areEqual(prevProps: Props, nextProps: Props) {
   if (
     prevProps.endDate &&
     prevProps.startDate &&
-    moment(prevProps.startDate).format('YYYYMM') <
-      moment(newId).format('YYYYMM') &&
-    moment(prevProps.endDate).format('YYYYMM') > moment(newId).format('YYYYMM')
+    moment(prevProps.startDate).format("YYYYMM") <
+      moment(newId).format("YYYYMM") &&
+    moment(prevProps.endDate).format("YYYYMM") > moment(newId).format("YYYYMM")
   ) {
     return false;
   }
@@ -141,33 +162,33 @@ const styles = StyleSheet.create({
   monthContainer: {
     paddingTop: 20,
     paddingHorizontal: PADDING_HORIZONTAL,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   monthNameContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     height: 30,
-    paddingLeft: 20,
+    paddingLeft: 16,
   },
   monthName: {
     fontSize: 16,
   },
   dayNamesContainer: {
     height: 50,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   dayNameContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   dayName: {
     fontSize: 15,
-    color: '#bababe',
+    color: "#bababe",
   },
   dayContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
   },
 });

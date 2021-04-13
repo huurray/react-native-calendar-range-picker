@@ -1,14 +1,14 @@
-import React from 'react';
-import moment from 'moment';
-import {FlatList, View, ActivityIndicator} from 'react-native';
+import React, { useMemo, useCallback } from "react";
+import moment from "moment";
+import { FlatList, View, ActivityIndicator } from "react-native";
 // components
-import Month from './Month';
+import Month from "./Month";
 // data
-import {getMonths} from './utils/data';
+import { getMonths } from "./utils/data";
 // types
-import {Month_Type} from './utils/data';
-import {LOCALE_TYPE} from './utils/locale';
-import {Style} from './index';
+import { Month_Type } from "./utils/data";
+import { LOCALE_TYPE } from "./utils/locale";
+import { Style } from "./index";
 
 interface Props {
   pastYearRange: number;
@@ -20,6 +20,7 @@ interface Props {
   endDate: string | null;
   style?: Style;
   flatListProps?: any;
+  customMonthName?: any;
 }
 
 const LAYOUT_HEIGHT = 370;
@@ -32,52 +33,56 @@ const CalendarList = ({
   startDate,
   endDate,
   flatListProps,
+  customMonthName,
   style,
 }: Props) => {
-  const months: Month_Type[] = React.useMemo(
+  const months: Month_Type[] = useMemo(
     () => getMonths(pastYearRange, futureYearRange),
-    [pastYearRange, futureYearRange],
+    [pastYearRange, futureYearRange]
   );
 
-  const getInitialIndex = React.useCallback(() => {
+  const getInitialIndex = useCallback(() => {
     return months.findIndex((month: Month_Type) => {
       const targetDate = startDate ? moment(startDate) : moment();
-      return month.id === targetDate.format('YYYY-MM');
+      return month.id === targetDate.format("YYYY-MM");
     });
   }, []);
 
-  const handleRenderItem = React.useCallback(
-    ({item}) => (
+  const handleRenderItem = useCallback(
+    ({ item }) => (
       <View
         style={{
           height: LAYOUT_HEIGHT,
-          backgroundColor: '#fff',
-        }}>
+          backgroundColor: "#fff",
+        }}
+      >
         <Month
           item={item}
           locale={locale}
           handlePress={handlePress}
           startDate={startDate}
           endDate={endDate}
+          customMonthName={customMonthName}
           style={style}
         />
       </View>
     ),
-    [locale.today, startDate, endDate],
+    [locale.today, startDate, endDate]
   );
 
   return (
-    <View style={[{position: 'relative'}, style?.container]}>
+    <View style={[{ position: "relative" }, style?.container]}>
       <View
         style={{
           top: 0,
           left: 0,
           right: 0,
           bottom: 0,
-          position: 'absolute',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
+          position: "absolute",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <ActivityIndicator />
       </View>
       <FlatList

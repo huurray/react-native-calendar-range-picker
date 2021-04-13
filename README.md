@@ -43,7 +43,7 @@ import Calendar from "react-native-calendar-range-picker";
   <Calendar
     startDate="2020-05-05"
     singleSelectMode
-    onChange={date => console.log(date)}
+    onChange={(date) => console.log(date)}
   />
 </View>
 ```
@@ -63,6 +63,7 @@ Common props you may want to specify include:
 | `endDate`            | `string(YYYY-MM-DD)` | Initially visible end date.                                                                             |
 | `initialNumToRender` | `number`             | FlatList initialNumToRender prop.(to protect slow initial render)(default = 7)                          |
 | `flatListProps`      | `FlatList Props`     | FlatList all props.                                                                                     |
+| `customMonthName`    | `Component`          | Customize Month Name. ( 2021 April -> {customComponent} )                                               |
 | `style`              | `object`             | Customize style.                                                                                        |
 
 ### Locale

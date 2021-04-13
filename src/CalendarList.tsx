@@ -20,6 +20,7 @@ interface Props {
   endDate: string | null;
   style?: Style;
   flatListProps?: any;
+  customMonthName?: any;
 }
 
 const LAYOUT_HEIGHT = 370;
@@ -32,6 +33,7 @@ const CalendarList = ({
   startDate,
   endDate,
   flatListProps,
+  customMonthName,
   style,
 }: Props) => {
   const months: Month_Type[] = useMemo(
@@ -60,6 +62,7 @@ const CalendarList = ({
           handlePress={handlePress}
           startDate={startDate}
           endDate={endDate}
+          customMonthName={customMonthName}
           style={style}
         />
       </View>

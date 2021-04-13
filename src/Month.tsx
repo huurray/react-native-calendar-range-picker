@@ -14,6 +14,7 @@ interface Props {
   handlePress: (date: string) => void;
   startDate: string | null;
   endDate: string | null;
+  customMonthName?: any;
   style?: Style;
 }
 
@@ -24,6 +25,7 @@ function Month({
   handlePress,
   startDate,
   endDate,
+  customMonthName,
   style,
 }: Props) {
   const { year, month } = item;
@@ -67,15 +69,25 @@ function Month({
   return (
     <View style={[styles.monthContainer, style?.monthContainer]}>
       <View style={styles.monthNameContainer}>
-        <Text style={[styles.monthName, style?.monthNameText]}>
-          {year}
-          {locale.year}
-        </Text>
-        <Text
-          style={[styles.monthName, { marginLeft: 5 }, style?.monthNameText]}
-        >
-          {locale.monthNames[month - 1]}
-        </Text>
+        {customMonthName ? (
+          customMonthName
+        ) : (
+          <>
+            <Text style={[styles.monthName, style?.monthNameText]}>
+              {year}
+              {locale.year}
+            </Text>
+            <Text
+              style={[
+                styles.monthName,
+                { marginLeft: 5 },
+                style?.monthNameText,
+              ]}
+            >
+              {locale.monthNames[month - 1]}
+            </Text>
+          </>
+        )}
       </View>
       <View style={styles.dayNamesContainer}>{renderDayNames()}</View>
       {renderWeeks()}
@@ -156,7 +168,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     height: 30,
-    paddingLeft: 20,
+    paddingLeft: 16,
   },
   monthName: {
     fontSize: 16,

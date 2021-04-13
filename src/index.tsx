@@ -36,6 +36,7 @@ interface Props {
   singleSelectMode?: boolean;
   initialNumToRender?: number;
   flatListProps?: any;
+  customMonthName?: any;
 }
 
 export default function Index({
@@ -49,6 +50,7 @@ export default function Index({
   style,
   singleSelectMode,
   flatListProps,
+  customMonthName,
 }: Props) {
   const [startDate, setStartDate] = useState(
     prevStartDate ? prevStartDate : null
@@ -111,6 +113,7 @@ export default function Index({
       endDate={endDate}
       style={style}
       flatListProps={flatListProps}
+      customMonthName={customMonthName}
     />
   );
 }

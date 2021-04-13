@@ -1,10 +1,10 @@
-import React, {memo} from 'react';
-import {View, Text} from 'react-native';
-import moment from 'moment';
+import React, { memo } from "react";
+import { View, Text } from "react-native";
+import moment from "moment";
 // types
-import {LOCALE_TYPE} from './utils/locale';
-import {Day_Type} from './utils/data';
-import {Style} from './index';
+import { LOCALE_TYPE } from "./utils/locale";
+import { Day_Type } from "./utils/data";
+import { Style } from "./index";
 
 interface Props {
   day: Day_Type;
@@ -12,30 +12,30 @@ interface Props {
   style?: Style;
 }
 
-function Day({day, locale, style}: Props) {
-  const {date, type, isHoliday, isToday} = day;
+function Day({ day, locale, style }: Props) {
+  const { date, type, isHoliday, isToday } = day;
 
-  const dayTextColor = style?.dayTextColor || '#1d1c1d';
-  const holidayColor = style?.holidayColor || '#f26522';
-  const todayColor = style?.todayColor || '#1692e4';
-  const selectedDayTextColor = style?.selectedDayTextColor || '#fff';
+  const dayTextColor = style?.dayTextColor || "#1d1c1d";
+  const holidayColor = style?.holidayColor || "#f26522";
+  const todayColor = style?.todayColor || "#1692e4";
+  const selectedDayTextColor = style?.selectedDayTextColor || "#fff";
   const selectedDayBackgroundColor =
-    style?.selectedDayBackgroundColor || '#83bc44';
+    style?.selectedDayBackgroundColor || "#83bc44";
   const selectedBetweenDayTextColor =
-    style?.selectedBetweenDayTextColor || '#1d1c1d';
+    style?.selectedBetweenDayTextColor || "#1d1c1d";
   const selectedBetweenDayBackgroundTextColor =
-    style?.selectedBetweenDayBackgroundTextColor || '#F2F2F2';
+    style?.selectedBetweenDayBackgroundTextColor || "#F2F2F2";
 
   let markStyle: any = {
     width: 30,
     height: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   };
   let betweenStyle: any = {
-    width: '50%',
+    width: "50%",
     height: 30,
-    position: 'absolute',
+    position: "absolute",
     backgroundColor: selectedBetweenDayBackgroundTextColor,
   };
   let dayStyle: any = {
@@ -43,35 +43,35 @@ function Day({day, locale, style}: Props) {
   };
 
   switch (type) {
-    case 'single':
+    case "single":
       markStyle = {
         ...markStyle,
         backgroundColor: selectedDayBackgroundColor,
         borderRadius: 15,
       };
-      dayStyle = {color: selectedDayTextColor};
+      dayStyle = { color: selectedDayTextColor };
       break;
-    case 'start':
+    case "start":
       markStyle = {
         ...markStyle,
         backgroundColor: selectedDayBackgroundColor,
         borderRadius: 15,
       };
-      dayStyle = {color: selectedDayTextColor};
+      dayStyle = { color: selectedDayTextColor };
       break;
-    case 'end':
+    case "end":
       markStyle = {
         ...markStyle,
         backgroundColor: selectedDayBackgroundColor,
         borderRadius: 15,
       };
-      dayStyle = {color: selectedDayTextColor};
+      dayStyle = { color: selectedDayTextColor };
       break;
-    case 'between':
+    case "between":
       markStyle = {
         ...markStyle,
         backgroundColor: selectedBetweenDayBackgroundTextColor,
-        width: '101%',
+        width: "101%",
       };
       dayStyle = {
         color: isToday
@@ -89,17 +89,17 @@ function Day({day, locale, style}: Props) {
 
   return (
     <>
-      {type === 'end' ? <View style={[betweenStyle, {left: -1}]} /> : null}
-      {type === 'start' ? <View style={[betweenStyle, {right: -1}]} /> : null}
+      {type === "end" ? <View style={[betweenStyle, { left: -1 }]} /> : null}
+      {type === "start" ? <View style={[betweenStyle, { right: -1 }]} /> : null}
       {date ? (
         <View style={markStyle}>
-          <Text style={[{fontSize: 15}, dayStyle, style?.dayText]}>
+          <Text style={[{ fontSize: 15 }, dayStyle, style?.dayText]}>
             {moment(date).date()}
           </Text>
         </View>
       ) : null}
       {isToday ? (
-        <Text style={[{fontSize: 12}, {color: todayColor}]}>
+        <Text style={[{ fontSize: 12 }, { color: todayColor }]}>
           {locale.today}
         </Text>
       ) : null}

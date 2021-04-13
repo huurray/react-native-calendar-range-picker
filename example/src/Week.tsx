@@ -1,11 +1,11 @@
-import React, {memo} from 'react';
-import {View, StyleSheet, TouchableOpacity} from 'react-native';
+import React, { memo } from "react";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 // components
-import Day from './Day';
+import Day from "./Day";
 // types
-import {LOCALE_TYPE} from './utils/locale';
-import {Week_Type} from './utils/data';
-import {Style} from './index';
+import { LOCALE_TYPE } from "./utils/locale";
+import { Week_Type } from "./utils/data";
+import { Style } from "./index";
 
 interface Props {
   week: Week_Type;
@@ -15,7 +15,7 @@ interface Props {
   style?: Style;
 }
 
-function Week({week, locale, handlePress, is6Weeks, style}: Props) {
+function Week({ week, locale, handlePress, is6Weeks, style }: Props) {
   const renderDayNames = () => {
     const result = [];
     for (let i = 0; i < 7; i++) {
@@ -25,15 +25,16 @@ function Week({week, locale, handlePress, is6Weeks, style}: Props) {
           style={{
             flex: 1,
             height: is6Weeks ? 45 : 50,
-            alignItems: 'center',
+            alignItems: "center",
           }}
-          onPress={() => handlePress(day.date || '')}
+          onPress={() => handlePress(day.date || "")}
           activeOpacity={1}
-          key={day.date || i}>
+          key={day.date || i}
+        >
           <Day day={day} locale={locale} style={style} />
         </TouchableOpacity>
       ) : (
-        <View style={{flex: 1, height: is6Weeks ? 45 : 50}} key={i} />
+        <View style={{ flex: 1, height: is6Weeks ? 45 : 50 }} key={i} />
       );
       result.push(DayComponent);
     }
@@ -57,7 +58,7 @@ export default memo(Week, areEqual);
 
 const styles = StyleSheet.create({
   weekContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
