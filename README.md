@@ -63,7 +63,7 @@ Common props you may want to specify include:
 | `endDate`            | `string(YYYY-MM-DD)` | Initially visible end date.                                                                             |
 | `initialNumToRender` | `number`             | FlatList initialNumToRender prop.(to protect slow initial render)(default = 7)                          |
 | `flatListProps`      | `FlatList Props`     | FlatList all props.                                                                                     |
-| `customMonthName`    | `Component`          | Customize Month Name. ( 2021 April -> {customComponent} )                                               |
+| `isMonthFirst`       | `boolean`            | Switch year and month order (2021 April -> April 2021)                                                  |
 | `style`              | `object`             | Customize style.                                                                                        |
 
 ### Locale
