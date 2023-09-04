@@ -12,7 +12,8 @@
   "dependencies": {
     "moment": "^2.24.0",
     "react": "16.9.0",
-    "react-native": "0.61.5"
+    "react-native": "0.61.5",
+    "react-native-calendar-range-picker": "^1.5.5"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",

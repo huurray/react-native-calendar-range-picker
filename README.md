@@ -40,11 +40,7 @@ import Calendar from "react-native-calendar-range-picker";
 
 ```jsx
 <View style={{ height: 600 }}>
-  <Calendar
-    startDate="2020-05-05"
-    singleSelectMode
-    onChange={(date) => console.log(date)}
-  />
+  <Calendar startDate="2020-05-05" singleSelectMode onChange={(date) => console.log(date)} />
 </View>
 ```
 
@@ -65,6 +61,7 @@ Common props you may want to specify include:
 | `flatListProps`       | `FlatList Props`     | FlatList all props.                                                                                     |
 | `isMonthFirst`        | `boolean`            | Switch year and month order. (2021 April -> April 2021)                                                 |
 | `disabledBeforeToday` | `boolean`            | Disable select day before today.                                                                        |
+| `disabledAfterToday`  | `boolean`            | Disable select day after today.                                                                         |
 | `style`               | `object`             | Customize style.                                                                                        |
 
 ### Locale

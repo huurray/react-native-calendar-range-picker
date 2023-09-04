@@ -16,6 +16,7 @@ interface Props {
   endDate: string | null;
   isMonthFirst?: boolean;
   disabledBeforeToday?: boolean;
+  disabledAfterToday?: boolean;
   style?: Style;
 }
 
@@ -28,6 +29,7 @@ function Month({
   endDate,
   isMonthFirst,
   disabledBeforeToday,
+  disabledAfterToday,
   style,
 }: Props) {
   const { year, month } = item;
@@ -39,9 +41,7 @@ function Month({
     for (let i = 0; i < dayNames.length; i++) {
       result.push(
         <View key={i} style={styles.dayNameContainer}>
-          <Text style={[styles.dayName, style?.dayNameText]}>
-            {dayNames[i]}
-          </Text>
+          <Text style={[styles.dayName, style?.dayNameText]}>{dayNames[i]}</Text>
         </View>
       );
     }
@@ -62,6 +62,7 @@ function Month({
           handlePress={handlePress}
           is6Weeks={is6Weeks}
           disabledBeforeToday={disabledBeforeToday}
+          disabledAfterToday={disabledAfterToday}
           style={style}
         />
       );
@@ -87,39 +88,26 @@ function Month({
 
 function areEqual(prevProps: Props, nextProps: Props) {
   const newId = nextProps.item.id;
-  if (
-    nextProps.startDate &&
-    moment(nextProps.startDate).format("YYYY-MM") === newId
-  ) {
+  if (nextProps.startDate && moment(nextProps.startDate).format("YYYY-MM") === newId) {
     return false;
   }
 
-  if (
-    nextProps.endDate &&
-    moment(nextProps.endDate).format("YYYY-MM") === newId
-  ) {
+  if (nextProps.endDate && moment(nextProps.endDate).format("YYYY-MM") === newId) {
     return false;
   }
 
-  if (
-    prevProps.startDate &&
-    moment(prevProps.startDate).format("YYYY-MM") === newId
-  ) {
+  if (prevProps.startDate && moment(prevProps.startDate).format("YYYY-MM") === newId) {
     return false;
   }
 
-  if (
-    prevProps.endDate &&
-    moment(prevProps.endDate).format("YYYY-MM") === newId
-  ) {
+  if (prevProps.endDate && moment(prevProps.endDate).format("YYYY-MM") === newId) {
     return false;
   }
 
   if (
     nextProps.startDate &&
     nextProps.endDate &&
-    moment(nextProps.startDate).format("YYYYMM") <
-      moment(newId).format("YYYYMM") &&
+    moment(nextProps.startDate).format("YYYYMM") < moment(newId).format("YYYYMM") &&
     moment(nextProps.endDate).format("YYYYMM") > moment(newId).format("YYYYMM")
   ) {
     return false;
@@ -128,18 +116,13 @@ function areEqual(prevProps: Props, nextProps: Props) {
   if (
     prevProps.endDate &&
     prevProps.startDate &&
-    moment(prevProps.startDate).format("YYYYMM") <
-      moment(newId).format("YYYYMM") &&
+    moment(prevProps.startDate).format("YYYYMM") < moment(newId).format("YYYYMM") &&
     moment(prevProps.endDate).format("YYYYMM") > moment(newId).format("YYYYMM")
   ) {
     return false;
   }
 
-  if (
-    prevProps.locale &&
-    nextProps.locale &&
-    prevProps.locale.today !== nextProps.locale.today
-  ) {
+  if (prevProps.locale && nextProps.locale && prevProps.locale.today !== nextProps.locale.today) {
     return false;
   }
 

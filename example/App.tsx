@@ -6,7 +6,7 @@ import {
   Text,
   StatusBar,
 } from 'react-native';
-import Calendar from './src/index';
+import Calendar from 'react-native-calendar-range-picker';
 
 interface Params {
   startDate: string | null;
@@ -67,7 +67,7 @@ const App = () => {
         </View>
 
         <View style={{flex: 1}}>
-          <Calendar onChange={handleChange} />
+          <Calendar onChange={handleChange} disabledBeforeToday />
         </View>
       </SafeAreaView>
     </>

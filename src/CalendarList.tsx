@@ -22,6 +22,7 @@ interface Props {
   flatListProps?: any;
   isMonthFirst?: boolean;
   disabledBeforeToday?: boolean;
+  disabledAfterToday?: boolean;
 }
 
 const LAYOUT_HEIGHT = 370;
@@ -36,6 +37,7 @@ const CalendarList = ({
   flatListProps,
   isMonthFirst,
   disabledBeforeToday,
+  disabledAfterToday,
   style,
 }: Props) => {
   const months: Month_Type[] = useMemo(
@@ -66,6 +68,7 @@ const CalendarList = ({
           endDate={endDate}
           isMonthFirst={isMonthFirst}
           disabledBeforeToday={disabledBeforeToday}
+          disabledAfterToday={disabledAfterToday}
           style={style}
         />
       </View>

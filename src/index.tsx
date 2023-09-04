@@ -39,6 +39,7 @@ interface Props {
   flatListProps?: any;
   isMonthFirst?: boolean;
   disabledBeforeToday?: boolean;
+  disabledAfterToday?: boolean;
 }
 
 export default function Index({
@@ -54,10 +55,9 @@ export default function Index({
   flatListProps,
   isMonthFirst,
   disabledBeforeToday,
+  disabledAfterToday,
 }: Props) {
-  const [startDate, setStartDate] = useState(
-    prevStartDate ? prevStartDate : null
-  );
+  const [startDate, setStartDate] = useState(prevStartDate ? prevStartDate : null);
   const [endDate, setEndDate] = useState(prevEndDate ? prevEndDate : null);
   const startDateRef: any = useRef(null);
   const endDateRef: any = useRef(null);
@@ -118,6 +118,7 @@ export default function Index({
       flatListProps={flatListProps}
       isMonthFirst={isMonthFirst}
       disabledBeforeToday={disabledBeforeToday}
+      disabledAfterToday={disabledAfterToday}
     />
   );
 }

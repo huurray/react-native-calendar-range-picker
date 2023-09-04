@@ -4,6 +4,7 @@ export interface Day_Type {
   type: string | null;
   isToday: boolean;
   isBeforeToday: boolean;
+  isAfterToday: boolean;
   isHoliday: boolean;
 }
 
@@ -39,11 +40,7 @@ export function getMonths(pastYearRange: number, futureYearRange: number) {
   return months;
 }
 
-export function getWeeks(
-  month: string,
-  startDate: string | null,
-  endDate: string | null
-) {
+export function getWeeks(month: string, startDate: string | null, endDate: string | null) {
   const today = moment().format("YYYY-MM-DD");
   const currentMonth = moment(month).month();
   const currentDate = moment(month).startOf("month");
@@ -59,6 +56,7 @@ export function getWeeks(
         date: null,
         isToday: false,
         isBeforeToday: false,
+        isAfterToday: false,
         isHoliday: false,
       };
       const currentDateString = currentDate.format("YYYY-MM-DD");
@@ -78,17 +76,13 @@ export function getWeeks(
             dayObj.type = "end";
           }
         }
-        if (
-          startDate &&
-          startDate < currentDateString &&
-          endDate &&
-          endDate > currentDateString
-        ) {
+        if (startDate && startDate < currentDateString && endDate && endDate > currentDateString) {
           dayObj.type = "between";
         }
 
         const date = currentDate.clone().format("YYYY-MM-DD");
         const passedDayFromToday = currentDate.diff(moment(), "day") < 0;
+        const futureDayFromToday = currentDate.diff(moment(), "hours") > 0;
         dayObj.date = date;
         if (date === today) {
           dayObj.isToday = true;
@@ -96,18 +90,16 @@ export function getWeeks(
         if (passedDayFromToday) {
           dayObj.isBeforeToday = true;
         }
+        if (futureDayFromToday) {
+          dayObj.isAfterToday = true;
+        }
         if (i === 0 || i === 6) {
           dayObj.isHoliday = true;
         }
         week.push(dayObj);
         currentDate.add(1, "day");
       } else {
-        if (
-          startDate &&
-          endDate &&
-          startDate < startDate &&
-          endDate >= startDate
-        ) {
+        if (startDate && endDate && startDate < startDate && endDate >= startDate) {
           dayObj.type = "between";
         }
 

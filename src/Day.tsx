@@ -10,21 +10,20 @@ interface Props {
   day: Day_Type;
   locale: LOCALE_TYPE;
   disabledBeforeToday?: boolean;
+  disabledAfterToday?: boolean;
   style?: Style;
 }
 
-function Day({ day, locale, disabledBeforeToday, style }: Props) {
-  const { date, type, isHoliday, isToday, isBeforeToday } = day;
+function Day({ day, locale, disabledBeforeToday, disabledAfterToday, style }: Props) {
+  const { date, type, isHoliday, isToday, isBeforeToday, isAfterToday } = day;
 
   const dayTextColor = style?.dayTextColor || "#1d1c1d";
   const holidayColor = style?.holidayColor || "#f26522";
   const todayColor = style?.todayColor || "#1692e4";
   const selectedDayTextColor = style?.selectedDayTextColor || "#fff";
   const disabledTextColor = style?.disabledTextColor || "#ccc";
-  const selectedDayBackgroundColor =
-    style?.selectedDayBackgroundColor || "#83bc44";
-  const selectedBetweenDayTextColor =
-    style?.selectedBetweenDayTextColor || "#1d1c1d";
+  const selectedDayBackgroundColor = style?.selectedDayBackgroundColor || "#83bc44";
+  const selectedBetweenDayTextColor = style?.selectedBetweenDayTextColor || "#1d1c1d";
   const selectedBetweenDayBackgroundTextColor =
     style?.selectedBetweenDayBackgroundTextColor || "#F2F2F2";
 
@@ -42,7 +41,7 @@ function Day({ day, locale, disabledBeforeToday, style }: Props) {
   };
   let dayStyle: any = {
     color:
-      disabledBeforeToday && isBeforeToday
+      (disabledBeforeToday && isBeforeToday) || (disabledAfterToday && isAfterToday)
         ? disabledTextColor
         : isToday
         ? todayColor
@@ -83,11 +82,7 @@ function Day({ day, locale, disabledBeforeToday, style }: Props) {
         width: "101%",
       };
       dayStyle = {
-        color: isToday
-          ? todayColor
-          : isHoliday
-          ? holidayColor
-          : selectedBetweenDayTextColor,
+        color: isToday ? todayColor : isHoliday ? holidayColor : selectedBetweenDayTextColor,
       };
 
       break;
@@ -102,15 +97,11 @@ function Day({ day, locale, disabledBeforeToday, style }: Props) {
       {type === "start" ? <View style={[betweenStyle, { right: -1 }]} /> : null}
       {date ? (
         <View style={markStyle}>
-          <Text style={[{ fontSize: 15 }, dayStyle, style?.dayText]}>
-            {moment(date).date()}
-          </Text>
+          <Text style={[{ fontSize: 15 }, dayStyle, style?.dayText]}>{moment(date).date()}</Text>
         </View>
       ) : null}
       {isToday ? (
-        <Text style={[{ fontSize: 12 }, { color: todayColor }]}>
-          {locale.today}
-        </Text>
+        <Text style={[{ fontSize: 12 }, { color: todayColor }]}>{locale.today}</Text>
       ) : null}
     </>
   );
