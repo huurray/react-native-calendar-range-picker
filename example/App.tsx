@@ -6,7 +6,8 @@ import {
   Text,
   StatusBar,
 } from 'react-native';
-import Calendar from 'react-native-calendar-range-picker';
+
+import Calendar from './src';
 
 interface Params {
   startDate: string | null;
