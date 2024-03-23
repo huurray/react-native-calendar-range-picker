@@ -1,12 +1,12 @@
-import React, { memo } from "react";
-import { StyleSheet, View, Text } from "react-native";
-import moment from "moment";
+import React, {memo} from 'react';
+import {StyleSheet, View, Text} from 'react-native';
+import dayjs from 'dayjs';
 // components
-import Week from "./Week";
+import Week from './Week';
 // types
-import { getWeeks, Month_Type, Week_Type } from "./utils/data";
-import { LOCALE_TYPE } from "./utils/locale";
-import { Style } from "./index";
+import {getWeeks, Month_Type, Week_Type} from './utils/data';
+import {LOCALE_TYPE} from './utils/locale';
+import {Style} from './index';
 
 interface Props {
   item: Month_Type;
@@ -32,7 +32,7 @@ function Month({
   disabledAfterToday,
   style,
 }: Props) {
-  const { year, month } = item;
+  const {year, month} = item;
 
   const renderDayNames = () => {
     const result = [];
@@ -41,8 +41,10 @@ function Month({
     for (let i = 0; i < dayNames.length; i++) {
       result.push(
         <View key={i} style={styles.dayNameContainer}>
-          <Text style={[styles.dayName, style?.dayNameText]}>{dayNames[i]}</Text>
-        </View>
+          <Text style={[styles.dayName, style?.dayNameText]}>
+            {dayNames[i]}
+          </Text>
+        </View>,
       );
     }
     return result;
@@ -64,7 +66,7 @@ function Month({
           disabledBeforeToday={disabledBeforeToday}
           disabledAfterToday={disabledAfterToday}
           style={style}
-        />
+        />,
       );
     }
     return result;
@@ -88,27 +90,40 @@ function Month({
 
 function areEqual(prevProps: Props, nextProps: Props) {
   const newId = nextProps.item.id;
-  if (nextProps.startDate && moment(nextProps.startDate).format("YYYY-MM") === newId) {
+  if (
+    nextProps.startDate &&
+    dayjs(nextProps.startDate).format('YYYY-MM') === newId
+  ) {
     return false;
   }
 
-  if (nextProps.endDate && moment(nextProps.endDate).format("YYYY-MM") === newId) {
+  if (
+    nextProps.endDate &&
+    dayjs(nextProps.endDate).format('YYYY-MM') === newId
+  ) {
     return false;
   }
 
-  if (prevProps.startDate && moment(prevProps.startDate).format("YYYY-MM") === newId) {
+  if (
+    prevProps.startDate &&
+    dayjs(prevProps.startDate).format('YYYY-MM') === newId
+  ) {
     return false;
   }
 
-  if (prevProps.endDate && moment(prevProps.endDate).format("YYYY-MM") === newId) {
+  if (
+    prevProps.endDate &&
+    dayjs(prevProps.endDate).format('YYYY-MM') === newId
+  ) {
     return false;
   }
 
   if (
     nextProps.startDate &&
     nextProps.endDate &&
-    moment(nextProps.startDate).format("YYYYMM") < moment(newId).format("YYYYMM") &&
-    moment(nextProps.endDate).format("YYYYMM") > moment(newId).format("YYYYMM")
+    dayjs(nextProps.startDate).format('YYYYMM') <
+      dayjs(newId).format('YYYYMM') &&
+    dayjs(nextProps.endDate).format('YYYYMM') > dayjs(newId).format('YYYYMM')
   ) {
     return false;
   }
@@ -116,13 +131,18 @@ function areEqual(prevProps: Props, nextProps: Props) {
   if (
     prevProps.endDate &&
     prevProps.startDate &&
-    moment(prevProps.startDate).format("YYYYMM") < moment(newId).format("YYYYMM") &&
-    moment(prevProps.endDate).format("YYYYMM") > moment(newId).format("YYYYMM")
+    dayjs(prevProps.startDate).format('YYYYMM') <
+      dayjs(newId).format('YYYYMM') &&
+    dayjs(prevProps.endDate).format('YYYYMM') > dayjs(newId).format('YYYYMM')
   ) {
     return false;
   }
 
-  if (prevProps.locale && nextProps.locale && prevProps.locale.today !== nextProps.locale.today) {
+  if (
+    prevProps.locale &&
+    nextProps.locale &&
+    prevProps.locale.today !== nextProps.locale.today
+  ) {
     return false;
   }
 
@@ -135,11 +155,11 @@ const styles = StyleSheet.create({
   monthContainer: {
     paddingTop: 20,
     paddingHorizontal: PADDING_HORIZONTAL,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
   },
   monthNameContainer: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     height: 30,
     paddingLeft: 16,
   },
@@ -148,20 +168,20 @@ const styles = StyleSheet.create({
   },
   dayNamesContainer: {
     height: 50,
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   dayNameContainer: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   dayName: {
     fontSize: 15,
-    color: "#bababe",
+    color: '#bababe',
   },
   dayContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
 });

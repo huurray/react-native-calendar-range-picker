@@ -1,6 +1,6 @@
 import React, {useMemo, useCallback} from 'react';
-import moment from 'moment';
-import {FlatList, View, ActivityIndicator} from 'react-native';
+import dayjs from 'dayjs';
+import {FlatList, View, ActivityIndicator, FlatListProps} from 'react-native';
 // components
 import Month from './Month';
 // data
@@ -19,7 +19,7 @@ interface Props {
   startDate: string | null;
   endDate: string | null;
   style?: Style;
-  flatListProps?: any;
+  flatListProps?: FlatListProps<Month_Type>;
   isMonthFirst?: boolean;
   disabledBeforeToday?: boolean;
   disabledAfterToday?: boolean;
@@ -47,14 +47,18 @@ const CalendarList = ({
 
   const getInitialIndex = useCallback(() => {
     return months.findIndex((month: Month_Type) => {
-      const targetDate = startDate ? moment(startDate) : moment();
+      const targetDate = startDate ? dayjs(startDate) : dayjs();
       return month.id === targetDate.format('YYYY-MM');
     });
   }, []);
 
   const handleRenderItem = useCallback(
-    ({item}: any) => (
-      <View style={{height: LAYOUT_HEIGHT}}>
+    ({item}: {item: Month_Type}) => (
+      <View
+        style={[
+          {height: LAYOUT_HEIGHT, backgroundColor: '#fff'},
+          style?.monthOverlayContainer,
+        ]}>
         <Month
           item={item}
           locale={locale}

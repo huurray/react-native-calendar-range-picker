@@ -1,13 +1,14 @@
-import React, { useState, useRef } from "react";
-import moment from "moment";
+import React, {useState, useRef} from 'react';
+import dayjs from 'dayjs';
 // components
-import CalendarList from "./CalendarList";
+import CalendarList from './CalendarList';
 // data
-import { LOCALE, LOCALE_TYPE } from "./utils/locale";
+import {LOCALE, LOCALE_TYPE} from './utils/locale';
 
 export interface Style {
   container?: {};
   monthContainer?: {};
+  monthOverlayContainer?: {};
   weekContainer?: {};
   monthNameText?: {};
   dayNameText?: {};
@@ -57,10 +58,12 @@ export default function Index({
   disabledBeforeToday,
   disabledAfterToday,
 }: Props) {
-  const [startDate, setStartDate] = useState(prevStartDate ? prevStartDate : null);
+  const [startDate, setStartDate] = useState(
+    prevStartDate ? prevStartDate : null,
+  );
   const [endDate, setEndDate] = useState(prevEndDate ? prevEndDate : null);
-  const startDateRef: any = useRef(null);
-  const endDateRef: any = useRef(null);
+  const startDateRef = useRef<string | null>(null);
+  const endDateRef = useRef<string | null>(null);
 
   const handleSetStartDate = (startDate: string) => {
     setStartDate(startDate);
@@ -70,14 +73,14 @@ export default function Index({
     if (singleSelectMode) {
       onChange(startDate);
     } else {
-      onChange({ startDate, endDate: null });
+      onChange({startDate, endDate: null});
     }
   };
 
   const handleSetEndDate = (startDate: string, endDate: string) => {
     setEndDate(endDate);
     endDateRef.current = endDate;
-    onChange({ startDate, endDate });
+    onChange({startDate, endDate});
   };
 
   const handlePress = (date: string) => {
@@ -97,7 +100,7 @@ export default function Index({
     }
 
     if (startDateRef.current) {
-      if (moment(date).isBefore(startDateRef.current)) {
+      if (dayjs(date).isBefore(startDateRef.current)) {
         handleSetStartDate(date);
       } else {
         handleSetEndDate(startDateRef.current, date);

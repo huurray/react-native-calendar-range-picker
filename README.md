@@ -29,8 +29,8 @@ import Calendar from "react-native-calendar-range-picker";
 
 <View style={{ flex: 1 }}>
   <Calendar
-    startDate="2020-05-05"
-    endDate="2020-05-12"
+    startDate="2024-03-05"
+    endDate="2024-03-12"
     onChange={({ startDate, endDate }) => console.log({ startDate, endDate })}
   />
 </View>;
@@ -40,7 +40,11 @@ import Calendar from "react-native-calendar-range-picker";
 
 ```jsx
 <View style={{ height: 600 }}>
-  <Calendar startDate="2020-05-05" singleSelectMode onChange={(date) => console.log(date)} />
+  <Calendar
+    startDate="2024-03-05"
+    singleSelectMode
+    onChange={(date) => console.log(date)}
+  />
 </View>
 ```
 
@@ -59,7 +63,7 @@ Common props you may want to specify include:
 | `endDate`             | `string(YYYY-MM-DD)` | Initially visible end date.                                                                             |
 | `initialNumToRender`  | `number`             | FlatList initialNumToRender prop.(to protect slow initial render)(default = 7)                          |
 | `flatListProps`       | `FlatList Props`     | FlatList all props.                                                                                     |
-| `isMonthFirst`        | `boolean`            | Switch year and month order. (2021 April -> April 2021)                                                 |
+| `isMonthFirst`        | `boolean`            | Switch year and month order. (2024 April -> April 2024)                                                 |
 | `disabledBeforeToday` | `boolean`            | Disable select day before today.                                                                        |
 | `disabledAfterToday`  | `boolean`            | Disable select day after today.                                                                         |
 | `style`               | `object`             | Customize style.                                                                                        |
@@ -84,7 +88,7 @@ const CUSTOM_LOCALE = {
     ],
     dayNames: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
     today: 'Today',
-    year: '', // letter behind year number -> 2020{year}
+    year: '', // letter behind year number -> 2024{year}
   }
 
 <Calendar
@@ -100,6 +104,7 @@ const CUSTOM_LOCALE = {
   style={{
     container: {},
     monthContainer: {},
+    monthOverlayContainer: {},
     weekContainer:{},
     monthNameText: {},
     dayNameText: {},

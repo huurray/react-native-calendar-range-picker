@@ -1,7 +1,8 @@
-import moment from "moment";
+import dayjs from 'dayjs';
+
 export interface Day_Type {
+  type: 'single' | 'start' | 'end' | 'between' | null;
   date: string | null;
-  type: string | null;
   isToday: boolean;
   isBeforeToday: boolean;
   isAfterToday: boolean;
@@ -10,48 +11,48 @@ export interface Day_Type {
 
 export type Week_Type = Day_Type[];
 export interface Month_Type {
+  id: string;
   year: number;
   month: number;
-  id: string;
 }
 
 export function getMonths(pastYearRange: number, futureYearRange: number) {
-  const currentYear = moment().year();
+  const currentYear = dayjs().year();
   const startYear = currentYear - pastYearRange;
   const endYear = currentYear + futureYearRange;
 
-  const months: any = [];
+  const months: Month_Type[] = [];
   for (let i = 0; i < endYear - startYear; i++) {
     const year = startYear + i;
-    for (let i = 0; i < 12; i++) {
-      let id = "";
-      if (i < 9) {
-        id = `${year}-0${i + 1}`;
-      } else {
-        id = `${year}-${i + 1}`;
-      }
+    for (let j = 1; j <= 12; j++) {
+      let id = '';
+      id = `${year}-${j <= 9 ? '0' : ''}${j}`;
       months.push({
         id,
         year,
-        month: i + 1,
+        month: j,
       });
     }
   }
   return months;
 }
 
-export function getWeeks(month: string, startDate: string | null, endDate: string | null) {
-  const today = moment().format("YYYY-MM-DD");
-  const currentMonth = moment(month).month();
-  const currentDate = moment(month).startOf("month");
-  let week: any = [];
-  let weeks: any = [];
-  let dayObj: any = {};
+export function getWeeks(
+  date: string,
+  selectedStartDate?: string | null,
+  selectedEndDate?: string | null,
+) {
+  const DATE_FORMAT = 'YYYY-MM-DD';
+  const today = dayjs().format(DATE_FORMAT);
+  const targetMonth = dayjs(date).month();
+
+  const month: Week_Type[] = [];
+  let calcDate = dayjs(date).startOf('month');
 
   do {
-    week = [];
+    let week: Week_Type = [];
     for (let i = 0; i < 7; i++) {
-      dayObj = {
+      let dayObj: Day_Type = {
         type: null,
         date: null,
         isToday: false,
@@ -59,30 +60,35 @@ export function getWeeks(month: string, startDate: string | null, endDate: strin
         isAfterToday: false,
         isHoliday: false,
       };
-      const currentDateString = currentDate.format("YYYY-MM-DD");
-      if (i == currentDate.days() && currentDate.month() == currentMonth) {
-        if (startDate && startDate === currentDateString) {
-          if (!endDate) {
-            dayObj.type = "single";
+      const formattedCalcDate = calcDate.format(DATE_FORMAT);
+      if (i == calcDate.day() && calcDate.month() == targetMonth) {
+        if (selectedStartDate && selectedStartDate === formattedCalcDate) {
+          if (!selectedEndDate) {
+            dayObj.type = 'single';
           } else {
-            dayObj.type = "start";
+            dayObj.type = 'start';
           }
         }
 
-        if (endDate && endDate == currentDateString) {
-          if (startDate === endDate) {
-            dayObj.type = "single";
+        if (selectedEndDate && selectedEndDate == formattedCalcDate) {
+          if (selectedStartDate === selectedEndDate) {
+            dayObj.type = 'single';
           } else {
-            dayObj.type = "end";
+            dayObj.type = 'end';
           }
         }
-        if (startDate && startDate < currentDateString && endDate && endDate > currentDateString) {
-          dayObj.type = "between";
+        if (
+          selectedStartDate &&
+          selectedStartDate < formattedCalcDate &&
+          selectedEndDate &&
+          selectedEndDate > formattedCalcDate
+        ) {
+          dayObj.type = 'between';
         }
 
-        const date = currentDate.clone().format("YYYY-MM-DD");
-        const passedDayFromToday = currentDate.diff(moment(), "day") < 0;
-        const futureDayFromToday = currentDate.diff(moment(), "hours") > 0;
+        const date = calcDate.clone().format(DATE_FORMAT);
+        const passedDayFromToday = calcDate.diff(dayjs(), 'day') < 0;
+        const futureDayFromToday = calcDate.diff(dayjs(), 'hours') > 0;
         dayObj.date = date;
         if (date === today) {
           dayObj.isToday = true;
@@ -97,17 +103,21 @@ export function getWeeks(month: string, startDate: string | null, endDate: strin
           dayObj.isHoliday = true;
         }
         week.push(dayObj);
-        currentDate.add(1, "day");
+        calcDate = calcDate.add(1, 'day');
       } else {
-        if (startDate && endDate && startDate < startDate && endDate >= startDate) {
-          dayObj.type = "between";
+        if (
+          selectedStartDate &&
+          selectedEndDate &&
+          selectedStartDate < selectedStartDate &&
+          selectedEndDate >= selectedStartDate
+        ) {
+          dayObj.type = 'between';
         }
-
         week.push(dayObj);
       }
     }
-    weeks.push(week);
-  } while (currentDate.month() == currentMonth);
+    month.push(week);
+  } while (calcDate.month() == targetMonth);
 
-  return weeks;
+  return month;
 }

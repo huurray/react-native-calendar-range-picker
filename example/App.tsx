@@ -59,7 +59,7 @@ const App = () => {
               alignItems: 'center',
             }}>
             {startDate ? <Text>{startDate}</Text> : null}
-            {endDate ? <Text> ~{endDate}</Text> : null}
+            {endDate ? <Text> ~ {endDate}</Text> : null}
           </View>
 
           <TouchableOpacity onPress={handleSubmit} style={{padding: 20}}>
